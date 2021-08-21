@@ -32,9 +32,14 @@ function setup() {
     frameRate(actual_frame_rate);
 	createCanvas(spurt_distance, width);
 
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));
     umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["UNSU"]));
-    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["UNSU","taiki"]));
-    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI"]));
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["UNSU","taiki"]));
+    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","taiki"]));
+    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI"]));
+    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","unsu"]));
+    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","unsu","taiki"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["OGURI"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","oguri"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","taiki"]));

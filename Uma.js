@@ -1,6 +1,7 @@
 class Uma {
     static counter = 1;
-    static top_frame =-1;
+    static top_frame = -1;
+    static standard_frame = 37650;
 
     constructor(id, x, y,abilities) {
         this.id = id;
@@ -35,7 +36,7 @@ class Uma {
                     ability = new AbilityTaiki(true);
                     break;
                 default:
-                    console.log("invalid skill name");
+                    console.log("invalid skill name: " + element);
             }
             this.abilities.push(ability);
         });
@@ -71,9 +72,9 @@ class Uma {
                 // this.acc.mult(0);
                 this.check_phase();
                 
+                this.elapsed_frame++;
                 this.edge();
                 
-                this.elapsed_frame++;
     }
 
     check_phase() {
@@ -101,10 +102,12 @@ class Uma {
                 const num = Math.round((this.elapsed_frame - Uma.top_frame) * initial_dest_vel*1000)/1000;
                 // console.log(this.elapsed_frame - Uma.top_frame);
                 // console.log(num);
-                bashin_diff = num+ "(m)";
+                bashin_diff = num+ "m";
             }
-            
-            console.log("#"+this.id+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
+
+            const diff_from_standard = (Uma.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * initial_dest_vel + "m";//1200は基準フレーム数を計測したときのフレームレート
+   
+            console.log("#"+this.id+" 基準との差:"+diff_from_standard+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
             console.log(this);
 		}
 	}
