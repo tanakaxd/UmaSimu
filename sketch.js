@@ -1,4 +1,4 @@
-const is_describing = false;
+const is_describing = true;
 const actual_frame_rate = is_describing?60: 1200;
 // const virtual_frame_rate = 20;
 const bashin_to_meter = 2.5; //"なお現実の1馬身は約2.4mだが、ウマ娘ヘルプ・用語集曰く1バ身約2.5mらしい。(三女神像が腕を伸ばした長さ)"
@@ -33,14 +33,14 @@ function setup() {
 	createCanvas(spurt_distance, width);
 
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));
-    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["UNSU"]));
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["UNSU"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["UNSU","taiki"]));
     umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","taiki"]));
     umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI"]));
-    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","unsu"]));
-    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","unsu","taiki"]));
-    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["OGURI"]));
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","unsu"]));
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","unsu","taiki"]));
+    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["OGURI"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","oguri"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","taiki"]));
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TAIKI","oguri","oguri"]));
@@ -68,9 +68,9 @@ function draw() {
 	line(third_corner_length+final_corner_length, 0, third_corner_length+final_corner_length, width);
 	pop();
 
-	loop = is_describing ? 1 : 2000;
+	const frequency = is_describing ? 1 : 2000;
 
-	for (let i = 0; i < loop; i++) {
+	for (let i = 0; i < frequency; i++) {
 		for (const uma of umas) {
 			uma.update();
 		}
