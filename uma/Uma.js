@@ -1,7 +1,7 @@
 class Uma {
     static counter = 1;
     static top_frame = -1;
-    static standard_frame = 37650;
+    static standard_frame = 40831;
 
     constructor(id, x, y,abilities) {
         this.id = id;
@@ -9,9 +9,10 @@ class Uma {
 		this.r = 25;
 		this.vel = createVector(initial_vel,0);
         this.acc = createVector(initial_acc, 0);
-        this.phase = PHASE.THIRD_CORNER;
+        this.phase = PHASE.MIDDLE;
+        this.progression = PROGRESSION.FINAL_CORNER
+        this.isSpurt = false;
         this.dest_vel = initial_dest_vel;
-        // this.distance = distance;
         this.abilities = [];
 
         abilities.forEach(element => {
@@ -35,6 +36,12 @@ class Uma {
                 case "taiki":
                     ability = new AbilityTaiki(true);
                     break;
+                case "CHIKARA":
+                    ability = new AbilityAoharuChikara(true);
+                    break;
+                case "chikara":
+                    ability = new AbilityAoharuChikara(false);
+                    break;
                 default:
                     console.log("invalid skill name: " + element);
             }
@@ -57,39 +64,48 @@ class Uma {
             ability.update(this);
         }
         
-        // for (let i = this.abilities.length-1; i >= 0; i--) {
-            //     if (this.abilities[i]()) {
-                //         this.abilities.remove(i);
-                //     }
-                // }
-                
-                this.vel = this.vel.add(this.acc);
-                if (this.vel.x > this.dest_vel) {
-                    this.vel.x = this.dest_vel;
-                }
-                
-                this.pos = this.pos.add(this.vel);
-                // this.acc.mult(0);
-                this.check_phase();
-                
-                this.elapsed_frame++;
-                this.edge();
+        this.vel = this.vel.add(this.acc);
+        if (this.vel.x > this.dest_vel) {
+            this.vel.x = this.dest_vel;
+        }
+        
+        this.pos = this.pos.add(this.vel);
+        this.check_phase();
+        this.check_progression();
+        
+        this.elapsed_frame++;
+        this.edge();
                 
     }
 
     check_phase() {
-        if (this.pos.x < third_corner_length) {
-            this.phase = PHASE.THIRD_CORNER;
-        } else if (this.pos.x < third_corner_length + final_corner_length) {
-            this.phase = PHASE.FINAL_CORNER;
+        if (this.pos.x < accum_dist_till_first_spurt) {
+            this.phase = PHASE.MIDDLE;
+        } else if (this.pos.x >= accum_dist_till_first_spurt && this.pos.x < accum_dist_till_second_spurt) {
+            this.phase = PHASE.FINAL_FIRST;
+            if (!this.isSpurt) {
+                this.dest_vel = spurt_dest_vel;
+            }
+            this.isSpurt = true;
         } else {
-            this.phase = PHASE.LAST_STRAIGHT;
+            this.phase = PHASE.FINAL_SECOND;
         }
     }
     
+
+    check_progression() {
+        if (this.pos.x < 0) {
+            this.progression = PROGRESSION.THIRD_CORNER;
+        } else if (this.pos.x >= 0 && this.pos.x < final_corner_length) {
+            this.progression = PROGRESSION.FINAL_CORNER;
+        } else {
+            this.progression = PROGRESSION.LAST_STRAIGHT;
+        }
+    }
+
 	edge() {
-		if (this.pos.x >= spurt_distance) {
-            this.pos.x = spurt_distance;
+		if (this.pos.x >= simulated_distance) {
+            this.pos.x = simulated_distance;
             this.goal_time = this.elapsed_frame / actual_frame_rate;
             this.finished = true;
             // noLoop();
@@ -105,16 +121,12 @@ class Uma {
                 bashin_diff = num+ "m";
             }
 
-            const diff_from_standard = (Uma.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * initial_dest_vel + "m";//1200は基準フレーム数を計測したときのフレームレート
+            const diff_from_standard = (Uma.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
    
-            console.log("#"+this.id+" 基準との差:"+diff_from_standard+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
+            console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
             console.log(this);
 		}
 	}
-
-	// applyForce(force) {
-	// 	this.acc.add(force);
-	// }
 
     show() {
 
@@ -123,15 +135,16 @@ class Uma {
         
 		let endpointx = this.pos.x + this.acc.x * 200 * actual_frame_rate*actual_frame_rate;
 		let endpointy = this.pos.y + this.acc.y * 200 * actual_frame_rate*actual_frame_rate;
-		push();
-		strokeWeight(1);
+        push();
+        let weight = 1 + (this.vel.x - initial_vel) * 100;
+		strokeWeight(weight);
         line(this.pos.x, this.pos.y, endpointx, endpointy);
         pop();
         
         push();
         fill(51);
         textSize(32);
-        text(this.id, this.pos.x, this.pos.y);
+        text(this.constructor.name, this.pos.x, this.pos.y);
         pop();
 
 	}

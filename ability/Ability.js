@@ -4,7 +4,7 @@ class Ability{
     base_duration;
     modified_duration_frame;
     lapse;
-    inherited;
+    // inherited;
     is_active;
     is_done;
 
