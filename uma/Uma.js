@@ -1,7 +1,7 @@
 class Uma {
     static counter = 1;
     static top_frame = -1;
-    static standard_frame = 40831;
+    static standard_frame = 94881;
 
     constructor(id, x, y,abilities) {
         this.id = id;
@@ -10,9 +10,9 @@ class Uma {
 		this.vel = createVector(initial_vel,0);
         this.acc = createVector(initial_acc, 0);
         this.phase = PHASE.MIDDLE;
-        this.progression = PROGRESSION.FINAL_CORNER
+        this.progression = PROGRESSION.THIRD_CORNER;
         this.isSpurt = false;
-        this.dest_vel = initial_dest_vel;
+        this.dest_vel = mid_dest_vel;
         this.abilities = [];
 
         abilities.forEach(element => {
@@ -42,6 +42,36 @@ class Uma {
                 case "chikara":
                     ability = new AbilityAoharuChikara(false);
                     break;
+                case "SUZUKA":
+                    ability = new AbilitySuzuka(false);
+                    break;
+                case "suzuka":
+                    ability = new AbilitySuzuka(true);
+                    break;
+                case "MAC":
+                    ability = new AbilityMac(false);
+                    break;
+                case "mac":
+                    ability = new AbilityMac(true);
+                    break;
+                case "TOBOSHA":
+                    ability = new AbilityTobosha(true);
+                    break;
+                case "tobosha":
+                    ability = new AbilityTobosha(false);
+                    break;
+                case "DASSHUTSU":
+                    ability = new AbilityDasshutsu(true);
+                    break;
+                case "dasshutsu":
+                    ability = new AbilityDasshutsu(false);
+                    break;
+                case "SPEEDSTAR":
+                    ability = new AbilitySpeedStar(true);
+                    break;
+                case "speedstar":
+                    ability = new AbilitySpeedStar(false);
+                    break;
                 default:
                     console.log("invalid skill name: " + element);
             }
@@ -54,7 +84,22 @@ class Uma {
         this.finished = false;
 
         Uma.counter++;
-	}
+    }
+    
+
+    init() {
+        this.pos.x = 0;
+        this.vel.x = initial_vel;
+        this.acc.x = initial_acc;
+        this.phase = PHASE.MIDDLE;
+        this.progression = PROGRESSION.THIRD_CORNER;;
+        this.isSpurt = false;
+        this.dest_vel = mid_dest_vel;
+        this.elapsed_frame = 0;
+        this.goal_time = -1;
+        this.finished = false;
+        this.abilities.forEach(a =>  a.init() );
+    }
 
     update() {
         if(is_describing)this.show();
@@ -84,7 +129,9 @@ class Uma {
         } else if (this.pos.x >= accum_dist_till_first_spurt && this.pos.x < accum_dist_till_second_spurt) {
             this.phase = PHASE.FINAL_FIRST;
             if (!this.isSpurt) {
-                this.dest_vel = spurt_dest_vel;
+                //TODO　単純な上書きだと速度スキルをかき消してしまう
+                // this.dest_vel = spurt_dest_vel;
+                this.dest_vel += spurt_dest_vel_diff;
             }
             this.isSpurt = true;
         } else {
@@ -94,9 +141,9 @@ class Uma {
     
 
     check_progression() {
-        if (this.pos.x < 0) {
+        if (this.pos.x < accum_dist_till_final_corner) {
             this.progression = PROGRESSION.THIRD_CORNER;
-        } else if (this.pos.x >= 0 && this.pos.x < final_corner_length) {
+        } else if (this.pos.x >= accum_dist_till_final_corner && this.pos.x < accum_dist_till_final_straight) {
             this.progression = PROGRESSION.FINAL_CORNER;
         } else {
             this.progression = PROGRESSION.LAST_STRAIGHT;
@@ -115,7 +162,7 @@ class Uma {
                 bashin_diff = "TOP";
             }
             else {
-                const num = Math.round((this.elapsed_frame - Uma.top_frame) * initial_dest_vel*1000)/1000;
+                const num = Math.round((this.elapsed_frame - Uma.top_frame) * mid_dest_vel*1000)/1000;
                 // console.log(this.elapsed_frame - Uma.top_frame);
                 // console.log(num);
                 bashin_diff = num+ "m";
@@ -125,6 +172,11 @@ class Uma {
    
             console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
             console.log(this);
+
+            if (is_recording) {
+                record.push(roundNum(diff_from_standard, 2));
+                this.init();
+            }
 		}
 	}
 
@@ -145,6 +197,12 @@ class Uma {
         fill(51);
         textSize(32);
         text(this.constructor.name, this.pos.x, this.pos.y);
+        pop();
+
+        push();
+        fill(51);
+        textSize(16);
+        text(roundNum(this.vel.x*actual_frame_rate,3), this.pos.x, this.pos.y+this.r);
         pop();
 
 	}

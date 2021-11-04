@@ -32,4 +32,10 @@ class Ability{
     terminate(uma) {
         
     }
+
+    init() {
+        this.lapse = 0;
+        this.is_active = false;
+        this.is_done = false;
+    }
 }
