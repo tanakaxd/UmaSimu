@@ -1,7 +1,3 @@
-//終盤前に発動する固有を考慮して、中盤あたりから計算できるよう仕様変更する必要がある
-//とりあえず第4コーナー開始から？第4コーナーが大体250m
-// 250m+525m つまり最終コーナー開始から終盤開始まで108m。そこから142mで最終直線
-//アオハル力の期待値を確認したい
 
 const is_describing = false;
 const is_recording = true;
@@ -50,7 +46,8 @@ const PROGRESSION = {
 };
 
 
-const record = [];
+const record_ms = [];
+const record_x = [];
 
 
 function setup() {
@@ -62,47 +59,80 @@ function setup() {
     frameRate(actual_frame_rate);
 	createCanvas(simulated_distance, width);
 
+    //スキル単体
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//基準。94881frame
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));//233ms
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mizumaru"]));//44ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac"]));//96ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["suzuka"]));//20ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["oguri"]));//59ms
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["rudolf"]));//31ms。ただし、加速しきっていれば62ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//AVE88ms,n=152
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["tobosha"]));//AVE137ms,n=337
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//AVE227ms,n=170
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["dasshutsu"]));//44ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["DASSHUTSU"]));//99ms
-    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["SPEEDSTAR"]));//AVE39ms,n=88
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["professor"]));//26ms
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["PROFESSOR"]));//56ms
+    umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["SPEEDSTAR"]));//AVE39ms,n=88
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["hidari"]));//44ms
+    // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["HIDARI"]));//65ms
+    
+    //固有スキル単体
+    // umas.push(new Oguri(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//144ms
+    // umas.push(new Rudolf(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//128ms
+    // umas.push(new Mac(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//217ms
+    // umas.push(new Mayano(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//MAX443ms。早ければ早いほど強い。速度と加速を個別に計算して足すことはできない
+    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//292ms
+    // umas.push(new Unsu(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//382ms
+    // umas.push(new Suzuka(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//101ms
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//170ms
 
+    //加速スキルの重複
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));//233ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","unsu"]));//382ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","unsu","unsu"]));//465ms
     // umas.push(new Uma(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","unsu","unsu","unsu"]));//521ms
 
-    // umas.push(new Oguri(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//144ms
-    // umas.push(new Mac(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//217ms
-    // umas.push(new Mayano(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//MAX443ms。早ければ早いほど強い
-    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//292ms
-    // umas.push(new Unsu(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//382ms
-    // umas.push(new Suzuka(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//101ms
-    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));//170ms
     
+
     // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["oguri"]));//351ms
     // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac"]));//378ms
+    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac","unsu"]));//508ms
+    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac","unsu","tobosha"]));//AVE543ms,n=1002
+    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac","unsu","TOBOSHA"]));//AVE567ms,n=1047
+    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac","HIDARI","HIDARI","oguri","oguri"]));//
+
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));//403ms
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac"]));//487ms
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","tobosha"]));//AVE=562,n=1750
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","TOBOSHA"]));//AVE=605,n=1999
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","HIDARI","HIDARI"]));//631ms
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","HIDARI","HIDARI","tobosha"]));//700ms,n=186
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","HIDARI","HIDARI","TOBOSHA"]));//766ms,n=149
     
     
     // for (let i = 0; i < 20; i++) {
     //     umas.push(new Mayano(Uma.counter,0, 40 + Uma.counter * 40,[],i*10));//MAX443ms。早ければ早いほど強い
     // }
         
-    // umas.push(new Suzuka(Uma.counter,0, height / 8 + Uma.counter * height / 10,[]));
     // umas.push(new Suzuka(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));//363ms
     // umas.push(new Unsu(Uma.counter,0, height / 8 + Uma.counter * height / 10,["suzuka"]));//420ms
     // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu"]));//403ms
+    // umas.push(new Unsu(Uma.counter,0, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//453ms,n=948
     // umas.push(new Suzuka(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","TOBOSHA"]));//AVE498ms,n=173
     // umas.push(new Unsu(Uma.counter,0, height / 8 + Uma.counter * height / 10,["suzuka","TOBOSHA"]));//AVE487ms,n=313
-    umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","TOBOSHA"]));//AVE536ms,n=144
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","TOBOSHA"]));//AVE536ms,n=144
 
     // umas.push(new Suzuka(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","TOBOSHA","mac"]));//
     // umas.push(new Unsu(Uma.counter,0, height / 8 + Uma.counter * height / 10,["suzuka","DASSHUTSU","mac"]));//
-    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","DASSHUTSU","mac"]));//
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","HIDARI","HIDARI"]));//631ms
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","HIDARI","HIDARI","tobosha"]));//700ms,n=186
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac","HIDARI","HIDARI","TOBOSHA"]));//766ms,n=149
+
+    // umas.push(new Mizumaru(Uma.counter,0, height / 8 + Uma.counter * height / 10,["unsu","mac"]));//
+    // umas.push(new Taiki(Uma.counter,0, height / 8 + Uma.counter * height / 10,["mac"]));//
+
         
     
 }
@@ -165,6 +195,34 @@ function final_corner_random() {
 }
 
 function average_record() {
-	const sum = record.reduce((s, e) => s + e, 0);
-	return roundNum(sum / record.length, 3);
+	const sum = record_ms.reduce((s, e) => s + e, 0);
+	return roundNum(sum / record_ms.length, 3);
+}
+
+function describe_chart() {
+    //データセット作成
+    const dataSet = [];
+    for (let i = 0; i < record_x.length; i++) {
+        dataSet.push({ x: record_x[i]+333, y: record_ms[i] });
+    }
+
+
+    var ctx = $('#chart');
+    var scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: '散布図データセット',
+            data: dataSet
+        }]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }]
+        }
+    }
+});
 }

@@ -7,7 +7,7 @@ class Ability{
     // inherited;
     is_active;
     is_done;
-
+    activated_position;
 
     constructor() {
         this.lapse = 0;
@@ -37,5 +37,9 @@ class Ability{
         this.lapse = 0;
         this.is_active = false;
         this.is_done = false;
+    }
+
+    record(uma) {
+        record_x.push(this.activated_position);
     }
 }

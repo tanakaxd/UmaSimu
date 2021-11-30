@@ -54,6 +54,18 @@ class Uma {
                 case "mac":
                     ability = new AbilityMac(true);
                     break;
+                case "RUDOLF":
+                    ability = new AbilityRudolf(false);
+                    break;
+                case "rudolf":
+                    ability = new AbilityRudolf(true);
+                    break;
+                case "MIZUMARU":
+                    ability = new AbilityMizumaru(false);
+                    break;
+                case "mizumaru":
+                    ability = new AbilityMizumaru(true);
+                    break;
                 case "TOBOSHA":
                     ability = new AbilityTobosha(true);
                     break;
@@ -66,11 +78,23 @@ class Uma {
                 case "dasshutsu":
                     ability = new AbilityDasshutsu(false);
                     break;
+                case "PROFESSOR":
+                    ability = new AbilityProfessor(true);
+                    break;
+                case "professor":
+                    ability = new AbilityProfessor(false);
+                    break;                
                 case "SPEEDSTAR":
                     ability = new AbilitySpeedStar(true);
                     break;
                 case "speedstar":
                     ability = new AbilitySpeedStar(false);
+                    break;
+                case "HIDARI":
+                    ability = new AbilityHidariMawari(true);
+                    break;
+                case "hidari":
+                    ability = new AbilityHidariMawari(false);
                     break;
                 default:
                     console.log("invalid skill name: " + element);
@@ -168,13 +192,18 @@ class Uma {
                 bashin_diff = num+ "m";
             }
 
-            const diff_from_standard = (Uma.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
+            const diff_from_standard_ms = (Uma.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
    
-            console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
+            console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard_ms,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
             console.log(this);
 
             if (is_recording) {
-                record.push(roundNum(diff_from_standard, 2));
+                record_ms.push(roundNum(diff_from_standard_ms, 2));
+
+                //TODO temporal
+                this.abilities.forEach(a => a.record(this));
+                describe_chart();
+
                 this.init();
             }
 		}
