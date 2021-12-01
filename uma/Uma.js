@@ -1,7 +1,7 @@
 class Uma {
     static counter = 1;
     static top_frame = -1;
-    static standard_frame = 94881;
+    // static standard_frame = 94881;
 
     constructor(id, x, y,abilities) {
         this.id = id;
@@ -9,8 +9,8 @@ class Uma {
 		this.r = 25;
 		this.vel = createVector(initial_vel,0);
         this.acc = createVector(initial_acc, 0);
-        this.phase = PHASE.MIDDLE;
-        this.progression = PROGRESSION.THIRD_CORNER;
+        this.phase = PHASE.EARLY;
+        this.progression = PROGRESSION.PRE_THIRD_CORNER;
         this.isSpurt = false;
         this.dest_vel = mid_dest_vel;
         this.abilities = [];
@@ -72,6 +72,12 @@ class Uma {
                 case "tobosha":
                     ability = new AbilityTobosha(false);
                     break;
+                case "KAGE":
+                    ability = new AbilityKage(true);
+                    break;
+                case "kage":
+                    ability = new AbilityKage(false);
+                    break;                
                 case "DASSHUTSU":
                     ability = new AbilityDasshutsu(true);
                     break;
@@ -90,6 +96,12 @@ class Uma {
                 case "speedstar":
                     ability = new AbilitySpeedStar(false);
                     break;
+                case "CORNER":
+                    ability = new AbilityCorner(true);
+                    break;
+                case "corner":
+                    ability = new AbilityCorner(false);
+                    break;                
                 case "HIDARI":
                     ability = new AbilityHidariMawari(true);
                     break;
@@ -112,11 +124,11 @@ class Uma {
     
 
     init() {
-        this.pos.x = 0;
+        this.pos.x = start_pos;
         this.vel.x = initial_vel;
         this.acc.x = initial_acc;
-        this.phase = PHASE.MIDDLE;
-        this.progression = PROGRESSION.THIRD_CORNER;;
+        this.phase = PHASE.EARLY;
+        this.progression = PROGRESSION.PRE_THIRD_CORNER;;
         this.isSpurt = false;
         this.dest_vel = mid_dest_vel;
         this.elapsed_frame = 0;
@@ -141,42 +153,30 @@ class Uma {
         this.pos = this.pos.add(this.vel);
         this.check_phase();
         this.check_progression();
-        
+
         this.elapsed_frame++;
         this.edge();
                 
     }
 
     check_phase() {
-        if (this.pos.x < accum_dist_till_first_spurt) {
-            this.phase = PHASE.MIDDLE;
-        } else if (this.pos.x >= accum_dist_till_first_spurt && this.pos.x < accum_dist_till_second_spurt) {
-            this.phase = PHASE.FINAL_FIRST;
-            if (!this.isSpurt) {
-                //TODO　単純な上書きだと速度スキルをかき消してしまう
-                // this.dest_vel = spurt_dest_vel;
-                this.dest_vel += spurt_dest_vel_diff;
-            }
+        this.phase = course.get_phase(this.pos.x);
+        //終盤に入った時一度だけ
+        if (this.phase == PHASE.FINAL_FIRST&&!this.isSpurt) {
+            //単純な上書きだと速度スキルをかき消してしまう
+            this.dest_vel += spurt_dest_vel_diff;
             this.isSpurt = true;
-        } else {
-            this.phase = PHASE.FINAL_SECOND;
         }
     }
     
 
     check_progression() {
-        if (this.pos.x < accum_dist_till_final_corner) {
-            this.progression = PROGRESSION.THIRD_CORNER;
-        } else if (this.pos.x >= accum_dist_till_final_corner && this.pos.x < accum_dist_till_final_straight) {
-            this.progression = PROGRESSION.FINAL_CORNER;
-        } else {
-            this.progression = PROGRESSION.LAST_STRAIGHT;
-        }
+        this.progression = course.get_progression(this.pos.x);
     }
 
 	edge() {
-		if (this.pos.x >= simulated_distance) {
-            this.pos.x = simulated_distance;
+		if (this.pos.x >= course.race_distance) {
+            this.pos.x = course.race_distance;
             this.goal_time = this.elapsed_frame / actual_frame_rate;
             this.finished = true;
             // noLoop();
@@ -192,7 +192,7 @@ class Uma {
                 bashin_diff = num+ "m";
             }
 
-            const diff_from_standard_ms = (Uma.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
+            const diff_from_standard_ms = (course.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
    
             console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard_ms,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
             console.log(this);

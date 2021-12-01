@@ -4,7 +4,7 @@ class AbilityTaiki extends Ability{
         this.inherited = inherited;
         this.base_duration = this.inherited? 4*0.6 : 4;
         this.base_acc_diff = this.inherited? 0.2 : 0.4;
-        this.modified_duration_frame = this.base_duration * (race_distance / 1000) * actual_frame_rate;
+        this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
     }
 

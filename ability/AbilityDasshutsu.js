@@ -4,7 +4,7 @@ class AbilityDasshutsu extends Ability{
         this.isRare = isRare;
         this.base_duration = this.isRare? 3:3;
         this.base_vel_diff = this.isRare? 0.35:0.15;
-        this.modified_duration_frame = this.base_duration * (race_distance / 1000) * actual_frame_rate;
+        this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
     }
 

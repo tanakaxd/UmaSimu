@@ -4,11 +4,11 @@ class AbilitySpeedStar extends Ability{
         this.isRare = isRare;
         this.base_duration = this.isRare? 1.2:1.2;
         this.base_vel_diff = this.isRare? 0.35:0.15;
-        this.modified_duration_frame = this.base_duration * (race_distance / 1000) * actual_frame_rate;
+        this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
         console.log("AbilitySppedStar constructor: delay="+delay);
 
-        this.activated_position = delay === undefined ? final_corner_random() : delay;
+        this.activated_position = delay === undefined ? course.final_corner_random() : delay+course.accum_dist_to_final_corner;
     }
 
 
@@ -39,6 +39,6 @@ class AbilitySpeedStar extends Ability{
 
     init() {
         super.init();
-        this.activated_position = final_corner_random();
+        this.activated_position = course.final_corner_random();
     }
 }

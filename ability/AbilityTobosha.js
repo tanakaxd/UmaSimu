@@ -4,7 +4,7 @@ class AbilityTobosha extends Ability{
         this.isRare = isRare;
         this.base_duration = this.isRare? 3 : 3;
         this.base_acc_diff = this.isRare? 0.4 : 0.2;
-        this.modified_duration_frame = this.base_duration * (race_distance / 1000) * actual_frame_rate;
+        this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
         console.log("AbilityTobosha constructor: delay="+delay);
         //発動位置

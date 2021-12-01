@@ -5,11 +5,10 @@ class AbilityMayano extends Ability{
         this.base_duration = this.inherited? 5*0.6 : 5;
         this.base_acc_diff = this.inherited? 0.1 : 0.3;
         this.base_vel_diff = this.inherited? 0.05 : 0.25;
-        this.modified_duration_frame = this.base_duration * (race_distance / 1000) * actual_frame_rate;
+        this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
-        //発動位置
-        this.activated_position = delay === undefined ? accum_dist_till_final_corner : delay+accum_dist_till_final_corner;
-
+        //発動位置。引数が与えられなかった場合は最終コーナーランダム発動
+        this.activated_position = delay === undefined ? course.final_corner_random() : delay+course.accum_dist_to_final_corner;
     }
 
 

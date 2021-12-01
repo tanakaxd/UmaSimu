@@ -1,13 +1,10 @@
-class AbilityAoharuChikara extends Ability{
+class AbilityProfessor extends Ability{
     constructor(isRare) {
         super();
         this.isRare = isRare;
-        this.base_duration = this.isRare? 3:3;
-        this.base_acc_diff = this.isRare? 0.4:0.2;
+        this.base_duration = this.isRare? 1.8:1.8;
+        this.base_vel_diff = this.isRare? 0.35:0.15;
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
-
-        //発動位置
-        this.activated_position = course.first_spurt_random();
 
     }
 
@@ -15,8 +12,8 @@ class AbilityAoharuChikara extends Ability{
 
     activate(uma) {
         if (this.is_done || this.is_active) return;
-        if (uma.phase == PHASE.FINAL_FIRST&&uma.pos.x>=this.activated_position) {
-            uma.acc.x += this.base_acc_diff / actual_frame_rate / actual_frame_rate;
+        if (uma.phase == PHASE.MIDDLE) {
+            uma.dest_vel += this.base_vel_diff / actual_frame_rate;
             this.is_active = true;
         }
     }
@@ -27,17 +24,14 @@ class AbilityAoharuChikara extends Ability{
     }
 
     terminate(uma) {
+
         if (this.is_active) {
             if (this.modified_duration_frame < this.lapse) {
-                uma.acc.x -= this.base_acc_diff / actual_frame_rate / actual_frame_rate;
+                uma.dest_vel -= this.base_vel_diff / actual_frame_rate;
                 this.is_active = false;
                 this.is_done = true;
             }
         }
     }
 
-    init() {
-        super.init();
-        this.activated_position = course.first_spurt_random();
-    }
 }

@@ -4,7 +4,7 @@ class AbilityMizumaru extends Ability{
         this.inherited = inherited;
         this.base_duration = this.inherited? 5*0.6 : 5;
         this.base_vel_diff = this.inherited? 0.15 : 0.35;
-        this.modified_duration_frame = this.base_duration * (race_distance / 1000) * actual_frame_rate;
+        this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
     }
 
 
