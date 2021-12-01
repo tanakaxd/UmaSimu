@@ -1,7 +1,6 @@
 class Uma {
     static counter = 1;
     static top_frame = -1;
-    // static standard_frame = 94881;
 
     constructor(id, x, y,abilities) {
         this.id = id;
@@ -66,6 +65,12 @@ class Uma {
                 case "mizumaru":
                     ability = new AbilityMizumaru(true);
                     break;
+                case "GOLSHI":
+                    ability = new AbilityGolshi(false);
+                    break;
+                case "golshi":
+                    ability = new AbilityGolshi(true);
+                    break;                
                 case "TOBOSHA":
                     ability = new AbilityTobosha(true);
                     break;

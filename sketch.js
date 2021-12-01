@@ -9,8 +9,8 @@ let course;
 const umas = [];
 const uma_counts = 1;
 const width = 600;
-// const start_pos = 417;
-const start_pos = 1600;
+const start_pos = 417;
+// const start_pos = 1600;
 const record_ms = [];
 const record_x = [];
 
@@ -58,7 +58,7 @@ function setup() {
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//147ms
-    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["dasshutsu"]));//56ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["DASSHUTSU"]));//129ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["professor"]));//33ms
@@ -73,6 +73,7 @@ function setup() {
     // umas.push(new Unsu(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//271ms
     // umas.push(new Rudolf(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//225ms
     // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//219ms
+    // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//190ms
     // umas.push(new Mac(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//178ms
     // umas.push(new Suzuka(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//178ms
     // umas.push(new Oguri(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//147ms
@@ -86,6 +87,8 @@ function setup() {
     //スキル複合
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage","unsu"]));//283ms。ゴルシにアナボ積む価値はアリ
     // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//ms
+    umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//338ms
+    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
 
     
 }
