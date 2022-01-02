@@ -26,6 +26,9 @@ class Course {
     accum_dist_to_final_corner;//最終コーナー
     accum_dist_to_spurt_corner;//終盤コーナー
     accum_dist_to_last_straight;
+
+    first_uphill;
+    first_downhill;
     
     is_final_corner(pos_x) {}
 
@@ -57,5 +60,9 @@ class Course {
 
     last_straight_random() {}
 
-    spurt_random() {}
+    spurt_random() { }
+    
+    fisrt_uphill() { }
+    
+    first_downhill(){}
 }

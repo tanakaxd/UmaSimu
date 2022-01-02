@@ -101,7 +101,10 @@ class Uma {
                     break;
                 case "kage":
                     ability = new AbilityKage(false);
-                    break;                
+                    break;   
+                case "tozanka":
+                    ability = new AbilityTozanka(false);
+                    break;                  
                 case "DASSHUTSU":
                     ability = new AbilityDasshutsu(true);
                     break;

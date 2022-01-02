@@ -10,16 +10,15 @@ let course;
 const umas = [];
 const uma_counts = 1;
 const width = 600;
-const start_pos = 417;
-// const start_pos = 1600;
+const start_pos = 200;
 const record_ms = [];
 const record_x = [];
 
 //先行距離S絶好調前提 12/12/12/4/12
-const initial_vel = 19.35 / actual_frame_rate;
-const initial_acc = 0.474/actual_frame_rate/actual_frame_rate;//速度と歩調を合わせるために一回割って、frame_rateに合わせるためにもう一回割る
-const mid_dest_vel = 19.35 / actual_frame_rate;
-const spurt_dest_vel = 23.81 / actual_frame_rate;
+const initial_vel = 20.64 / actual_frame_rate;
+const initial_acc = 0.463/actual_frame_rate/actual_frame_rate;//速度と歩調を合わせるために一回割って、frame_rateに合わせるためにもう一回割る
+const mid_dest_vel = 20.64 / actual_frame_rate;
+const spurt_dest_vel = 24.91 / actual_frame_rate;
 const spurt_dest_vel_diff = spurt_dest_vel-mid_dest_vel;
 
 const PHASE = {
@@ -37,7 +36,7 @@ const PROGRESSION = {
 };
 
 function setup() {
-    course = new Arima();
+    course = new Takamatsu();
 
     let button1 = select("#stop");  
 	let button2 = select("#resume");
@@ -49,54 +48,40 @@ function setup() {
 
     //スキル単体
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//基準
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//175ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mizumaru"]));//56ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mac"]));//46ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["suzuka"]));//46ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["oguri"]));//75ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["rudolf"]));//75ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//0ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mizumaru"]));//29ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mac"]));//29ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["suzuka"]));//0ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["oguri"]));//33ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["rudolf"]));//0ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["chikara"]));//n=1576,AVE76ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//n=1047,AVE129ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//147ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["dasshutsu"]));//56ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["DASSHUTSU"]));//129ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["professor"]));//33ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["PROFESSOR"]));//75ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//77ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//146ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["dasshutsu"]));//29ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["DASSHUTSU"]));//58ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["professor"]));//18ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["PROFESSOR"]));//34ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["SPEEDSTAR"]));//ms    
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["corner"]));//56ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CORNER"]));//93ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["hidari"]));//55ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["HIDARI"]));//83ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["corner"]));//29ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CORNER"]));//44ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["hidari"]));//20ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["HIDARI"]));//28ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tozanka"]));//126ms
     
     //固有スキル単体
-    // umas.push(new Unsu(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//271ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURI"]));//255ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal3+1確定,AVE275ms,n=933,接続確率約3割,スリーセブン発動24%,スリーセブン発動以上になる確率56.2%,最適発動は1512m
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal3+1,AVE272ms,n=1249,接続確率33.6%,スリーセブン発動21.8%,スリーセブン発動以上になる確率55.4%,最適発動は1512m
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal1+2+1,AVE245ms,n=1471,接続確率25.3%,スリーセブン発動20%,スリーセブン発動以上になる確率46.1%,
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal2+1,AVE186ms,
-    // umas.push(new Rudolf(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//225ms
-    // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//219ms
-    // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//190ms
-    // umas.push(new Mac(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//178ms
-    // umas.push(new Suzuka(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//178ms
-    // umas.push(new Oguri(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//147ms
-    umas.push(new Tamamo(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//
+    // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//99ms
+    // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//88ms
+    // umas.push(new Mac(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//99ms
+    // umas.push(new Oguri(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//96ms
     
     //加速スキルの重複
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//259ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu","unsu"]));//403ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu","unsu","unsu"]));//492ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu","unsu","unsu","unsu"]));//553ms
     
     //スキル複合
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage","unsu"]));//283ms。ゴルシにアナボ積む価値はアリ
-    // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//ms
-    // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//338ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURI","kage"]));//365ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tozanka","kage"]));//186ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["HIDARI","KAGE"]));//173ms
 
     
 }

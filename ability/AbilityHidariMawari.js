@@ -3,7 +3,7 @@ class AbilityHidariMawari extends Ability{
         super();
         this.isDouble = isDouble;
         this.base_duration = -1;
-        this.base_vel_diff = this.isDouble? 0.07545:0.05047;//レースエミュレータ参照
+        this.base_vel_diff = this.isDouble? 0.08079:0.05403;//レースエミュレータ参照
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
     }
