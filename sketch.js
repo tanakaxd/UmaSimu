@@ -1,6 +1,7 @@
 
 const is_describing = false;
-const is_recording = false;
+const is_recording = true;
+const is_logging = false;
 const actual_frame_rate = is_describing?60: 1200;
 // const virtual_frame_rate = 20;
 const bashin_to_meter = 2.5; //"なお現実の1馬身は約2.4mだが、ウマ娘ヘルプ・用語集曰く1バ身約2.5mらしい。(三女神像が腕を伸ばした長さ)"
@@ -71,12 +72,18 @@ function setup() {
     
     //固有スキル単体
     // umas.push(new Unsu(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//271ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURI"]));//255ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal3+1確定,AVE275ms,n=933,接続確率約3割,スリーセブン発動24%,スリーセブン発動以上になる確率56.2%,最適発動は1512m
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal3+1,AVE272ms,n=1249,接続確率33.6%,スリーセブン発動21.8%,スリーセブン発動以上になる確率55.4%,最適発動は1512m
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal1+2+1,AVE245ms,n=1471,接続確率25.3%,スリーセブン発動20%,スリーセブン発動以上になる確率46.1%,
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURIRANDOM"]));//heal2+1,AVE186ms,
     // umas.push(new Rudolf(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//225ms
     // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//219ms
     // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//190ms
     // umas.push(new Mac(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//178ms
     // umas.push(new Suzuka(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//178ms
     // umas.push(new Oguri(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//147ms
+    umas.push(new Tamamo(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//
     
     //加速スキルの重複
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//259ms
@@ -87,8 +94,9 @@ function setup() {
     //スキル複合
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage","unsu"]));//283ms。ゴルシにアナボ積む価値はアリ
     // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//ms
-    umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//338ms
-    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
+    // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//338ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//277ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["XOGURI","kage"]));//365ms
 
     
 }
@@ -155,26 +163,26 @@ function describe_chart() {
     //データセット作成
     const dataSet = [];
     for (let i = 0; i < record_x.length; i++) {
-        dataSet.push({ x: record_x[i]+333, y: record_ms[i] });
+        dataSet.push({ x: record_x[i], y: record_ms[i] });
     }
 
 
     var ctx = $('#chart');
     var scatterChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-        datasets: [{
-            label: '散布図データセット',
-            data: dataSet
-        }]
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom'
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: '散布図データセット',
+                data: dataSet
             }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom'
+                }]
+            }
         }
-    }
-});
+    });
 }

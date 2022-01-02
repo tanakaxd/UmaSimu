@@ -13,6 +13,7 @@ class Uma {
         this.isSpurt = false;
         this.dest_vel = mid_dest_vel;
         this.abilities = [];
+        this.vt_every_sec = [];
 
         abilities.forEach(element => {
             let ability;
@@ -70,7 +71,25 @@ class Uma {
                     break;
                 case "golshi":
                     ability = new AbilityGolshi(true);
-                    break;                
+                    break;
+                case "XOGURI":
+                    ability = new AbilityXOguri(false);
+                    break;
+                case "xoguri":
+                    ability = new AbilityXOguri(true);
+                    break;
+                case "XOGURIRANDOM":
+                    ability = new AbilityXOguriRandom(false);
+                    break;
+                case "xogurirandom":
+                    ability = new AbilityXOguriRandom(true);
+                    break;
+                case "TAMAMO":
+                    ability = new AbilityTamamo(false);
+                    break;
+                case "tamamo":
+                    ability = new AbilityTamamo(true);
+                    break                
                 case "TOBOSHA":
                     ability = new AbilityTobosha(true);
                     break;
@@ -154,6 +173,7 @@ class Uma {
         if (this.vel.x > this.dest_vel) {
             this.vel.x = this.dest_vel;
         }
+        this.record_vel();
         
         this.pos = this.pos.add(this.vel);
         this.check_phase();
@@ -161,6 +181,7 @@ class Uma {
 
         this.elapsed_frame++;
         this.edge();
+
                 
     }
 
@@ -199,17 +220,20 @@ class Uma {
 
             const diff_from_standard_ms = (course.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
    
-            console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard_ms,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
-            console.log(this);
+            if (is_logging) {
+                console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard_ms,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
+                console.log(this);
+            }
 
             if (is_recording) {
                 record_ms.push(roundNum(diff_from_standard_ms, 2));
 
                 //TODO temporal
                 this.abilities.forEach(a => a.record(this));
-                describe_chart();
-
+                
                 this.init();
+            } else {
+                describe_chart();
             }
 		}
 	}
@@ -239,5 +263,32 @@ class Uma {
         text(roundNum(this.vel.x*actual_frame_rate,3), this.pos.x, this.pos.y+this.r);
         pop();
 
-	}
+    }
+
+    record_vel() {
+        if (this.elapsed_frame % actual_frame_rate == 0) {
+            this.vt_every_sec.push({ x: this.elapsed_frame / actual_frame_rate, y: this.vel.x*actual_frame_rate });
+        }
+    }
+    
+    vt_chart() {
+        var ctx = $('#chart');
+        var scatterChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '散布図データセット',
+                    data: this.vt_every_sec
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'linear',
+                        position: 'bottom'
+                    }]
+                }
+            }
+        });
+    }
 }

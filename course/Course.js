@@ -43,7 +43,11 @@ class Course {
 
     get_phase(pos_x) {}
 
-    get_progression(pos_x) {}
+    get_progression(pos_x) { }
+    
+    mid_random() { }
+    
+    second_half_random(){}
     
     final_corner_random() { }
 

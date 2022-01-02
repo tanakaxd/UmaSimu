@@ -19,6 +19,7 @@ class Arima extends Course{
         this.final_corner_spurt_length = 250;
         this.third_corner_not_spurt_length = 0;
         this.third_corner_spurt_length = 250;
+        this.second_half_length = this.race_distance / 2;
 
         //ある区間の開始地点座標。スタートは0。ゴールは2500
         this.accum_dist_to_early = 0;
@@ -30,6 +31,7 @@ class Arima extends Course{
         this.accum_dist_to_final_corner = this.accum_dist_to_third_corner + this.third_corner_length;//最終コーナー
         this.accum_dist_to_spurt_corner = 1700;//終盤コーナー
         this.accum_dist_to_last_straight = this.accum_dist_to_final_corner + this.final_corner_length;
+        this.accum_dist_to_second_half = this.race_distance / 2;
 
         this.standard_frame = 120556;
 
@@ -102,6 +104,14 @@ class Arima extends Course{
         } else {
             console.error("invalid progression!!!!")
         }
+    }
+
+    mid_random() {
+        return Math.random() * this.middle_length + this.accum_dist_to_middle;
+    }
+
+    second_half_random() {
+        return Math.random() * this.second_half_length + this.accum_dist_to_second_half;
     }
 
     final_corner_random() {
