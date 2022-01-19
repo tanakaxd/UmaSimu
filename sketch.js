@@ -1,6 +1,9 @@
 
+// const is_describing = true;
 const is_describing = false;
 const is_recording = true;
+// const is_recording = false;
+// const is_logging = true;
 const is_logging = false;
 const actual_frame_rate = is_describing?60: 1200;
 // const virtual_frame_rate = 20;
@@ -48,16 +51,17 @@ function setup() {
 
     //スキル単体
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//基準
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru"]));//105ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//0ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mizumaru"]));//29ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mac"]));//29ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["suzuka"]));//0ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["oguri"]));//33ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["rudolf"]));//0ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["chikara"]));//n=1576,AVE76ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//n=1047,AVE129ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["chikara"]));//n=331,AVE47ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//n=2100,AVE82ms
+    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//AVE34ms,n=543
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//AVE58ms,n=3000
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//77ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//146ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["dasshutsu"]));//29ms
@@ -72,6 +76,8 @@ function setup() {
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tozanka"]));//126ms
     
     //固有スキル単体
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["ERU"]));//317ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["BONO"]));//AVE118ms,n=1084,60%地点が最大で317ms
     // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//99ms
     // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//88ms
     // umas.push(new Mac(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//99ms
@@ -82,6 +88,17 @@ function setup() {
     //スキル複合
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tozanka","kage"]));//186ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["HIDARI","KAGE"]));//173ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["ERU","tozanka"]));//357ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru"]));//195ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka"]));//274ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","chikara"]));//AVE291ms,n=2000
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","norikae"]));//AVE296ms,n=1064
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","CHIKARA"]));//AVE307ms,n=1131
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","chikara","norikae"]));//AVE310ms,n=620
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","CHIKARA","norikae"]));//AVE323ms,n=1064
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka"]));//225ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka","NORIKAE"]));//AVE289ms,n=3000
+    
 
     
 }
@@ -137,6 +154,11 @@ function resume() {
 function roundNum(num, digit) {
     const exp = Math.pow(10, digit);
     return Math.round(num * exp) / exp;
+}
+
+function getRandomPos(start, end) {
+    const length = end - start;
+    return start + Math.random()*length;
 }
 
 function average_record() {

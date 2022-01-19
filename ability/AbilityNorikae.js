@@ -1,8 +1,8 @@
-class AbilityAoharuChikara extends Ability{
+class AbilityNorikae extends Ability{
     constructor(isRare) {
         super();
         this.isRare = isRare;
-        this.base_duration = this.isRare? 1.2:1.2;//3:3にしていた。20210118修正
+        this.base_duration = this.isRare ? 1.8 : 1.8;
         this.base_acc_diff = this.isRare? 0.4:0.2;
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 

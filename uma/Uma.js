@@ -35,13 +35,7 @@ class Uma {
                     break;
                 case "taiki":
                     ability = new AbilityTaiki(true);
-                    break;
-                case "CHIKARA":
-                    ability = new AbilityAoharuChikara(true);
-                    break;
-                case "chikara":
-                    ability = new AbilityAoharuChikara(false);
-                    break;
+                    break;           
                 case "SUZUKA":
                     ability = new AbilitySuzuka(false);
                     break;
@@ -89,7 +83,19 @@ class Uma {
                     break;
                 case "tamamo":
                     ability = new AbilityTamamo(true);
-                    break                
+                    break         
+                case "ERU":
+                    ability = new AbilityEru(false);
+                    break;
+                case "eru":
+                    ability = new AbilityEru(true);
+                    break        
+                case "BONO":
+                    ability = new AbilityBono(false);
+                    break;
+                case "bono":
+                    ability = new AbilityBono(true);
+                    break                    
                 case "TOBOSHA":
                     ability = new AbilityTobosha(true);
                     break;
@@ -128,7 +134,19 @@ class Uma {
                     break;
                 case "corner":
                     ability = new AbilityCorner(false);
-                    break;                
+                    break;     
+                case "CHIKARA":
+                    ability = new AbilityAoharuChikara(true);
+                    break;
+                case "chikara":
+                    ability = new AbilityAoharuChikara(false);
+                    break;
+                case "NORIKAE":
+                    ability = new AbilityNorikae(true);
+                    break;
+                case "norikae":
+                    ability = new AbilityNorikae(false);
+                    break;                     
                 case "HIDARI":
                     ability = new AbilityHidariMawari(true);
                     break;

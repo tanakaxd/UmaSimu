@@ -8,7 +8,7 @@ class AbilityTobosha extends Ability{
 
         console.log("AbilityTobosha constructor: delay="+delay);
         //発動位置
-        this.activated_position = delay === undefined ? final_corner_random() : delay;
+        this.activated_position = delay === undefined ? course.final_corner_random() : delay;
 
     }
 
@@ -41,7 +41,7 @@ class AbilityTobosha extends Ability{
 
     init() {
         super.init();
-        this.activated_position = final_corner_random();
+        this.activated_position = course.final_corner_random();
     }
 
     record(uma) {
