@@ -1,8 +1,8 @@
 
 // const is_describing = true;
 const is_describing = false;
-const is_recording = true;
-// const is_recording = false;
+const is_repetitive_recording = true;
+// const is_repetitive_recording = false;
 // const is_logging = true;
 const is_logging = false;
 const actual_frame_rate = is_describing?60: 1200;
@@ -60,7 +60,7 @@ function setup() {
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["rudolf"]));//0ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["chikara"]));//n=331,AVE47ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//n=2100,AVE82ms
-    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//AVE34ms,n=543
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//AVE34ms,n=543
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//AVE58ms,n=3000
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//77ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//146ms
@@ -68,7 +68,7 @@ function setup() {
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["DASSHUTSU"]));//58ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["professor"]));//18ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["PROFESSOR"]));//34ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["SPEEDSTAR"]));//ms    
+    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["SPEEDSTAR"]));//ms    
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["corner"]));//29ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CORNER"]));//44ms
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["hidari"]));//20ms
@@ -97,7 +97,9 @@ function setup() {
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","chikara","norikae"]));//AVE310ms,n=620
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","CHIKARA","norikae"]));//AVE323ms,n=1064
     // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka"]));//225ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka","NORIKAE"]));//AVE289ms,n=3000
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka","NORIKAE"]));//AVE298ms,n=1000,MAX430ms
+    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["MIZUMARU","eru","eru","tozanka"]));//375ms
+
     
 
     
@@ -167,6 +169,34 @@ function average_record() {
 }
 
 function describe_chart() {
+    //データセット作成
+    const dataSet = [];
+    for (let i = 0; i < record_x.length; i++) {
+        dataSet.push({ x: record_x[i], y: record_ms[i] });
+    }
+
+
+    var ctx = $('#chart');
+    var scatterChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: '散布図データセット',
+                data: dataSet
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom'
+                }]
+            }
+        }
+    });
+}
+
+function describe_vel_chart() {
     //データセット作成
     const dataSet = [];
     for (let i = 0; i < record_x.length; i++) {

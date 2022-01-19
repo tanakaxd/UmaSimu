@@ -67,4 +67,8 @@ class AbilityXOguriRandom extends Ability{
         this.activated_position = -1;
         this.getHealPositions();
     }
+
+    record(uma) {
+        record_x.push(this.activated_position);
+    }
 }

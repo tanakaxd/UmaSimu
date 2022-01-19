@@ -39,4 +39,8 @@ class AbilityMayano extends Ability{
         }
         
     }
+
+    record(uma) {
+        record_x.push(this.activated_position);
+    }
 }

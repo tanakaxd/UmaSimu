@@ -189,12 +189,24 @@ class Uma {
         for (const ability of this.abilities) {
             ability.update(this);
         }
+
+        //TODO 速度が上限突破していた時の仕様
         
-        this.vel = this.vel.add(this.acc);
-        if (this.vel.x > this.dest_vel) {
-            this.vel.x = this.dest_vel;
+        if (this.vel.x < this.dest_vel) {
+            this.vel.add(this.acc);
+            if (this.vel.x > this.dest_vel) {
+                this.vel.x = this.dest_vel;
+            }
+        } else if(this.vel.x == this.dest_vel){
+        } else {
+            //目標速度のほうが上。例えば速度スキルが切れた場合
+            this.vel.sub(initial_acc);//実際の仕様がどうなっているのかは不明だが、一律で徐々に速度を落としていくように実装
+            if (this.vel.x < this.dest_vel) {
+                this.vel.x = this.dest_vel;
+            }
         }
-        this.record_vel();
+
+        if(!is_repetitive_recording)this.record_vt_every_frame();
         
         this.pos = this.pos.add(this.vel);
         this.check_phase();
@@ -226,7 +238,7 @@ class Uma {
             this.pos.x = course.race_distance;
             this.goal_time = this.elapsed_frame / actual_frame_rate;
             this.finished = true;
-            // noLoop();
+            
             let bashin_diff;
             if (Uma.top_frame == -1) {
                 Uma.top_frame = this.elapsed_frame;
@@ -246,7 +258,7 @@ class Uma {
                 console.log(this);
             }
 
-            if (is_recording) {
+            if (is_repetitive_recording) {
                 record_ms.push(roundNum(diff_from_standard_ms, 2));
 
                 //TODO temporal
@@ -254,7 +266,8 @@ class Uma {
                 
                 this.init();
             } else {
-                describe_chart();
+                this.vt_chart();
+                noLoop();
             }
 		}
 	}
@@ -286,10 +299,14 @@ class Uma {
 
     }
 
-    record_vel() {
+    record_vt_every_sec() {
         if (this.elapsed_frame % actual_frame_rate == 0) {
             this.vt_every_sec.push({ x: this.elapsed_frame / actual_frame_rate, y: this.vel.x*actual_frame_rate });
         }
+    }
+
+    record_vt_every_frame() {
+        this.vt_every_sec.push({ x: this.elapsed_frame / actual_frame_rate, y: this.vel.x*actual_frame_rate });
     }
     
     vt_chart() {

@@ -40,6 +40,6 @@ class Ability{
     }
 
     record(uma) {
-        record_x.push(this.activated_position);
+        // record_x.push(this.activated_position);
     }
 }

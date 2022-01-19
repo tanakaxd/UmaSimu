@@ -40,4 +40,8 @@ class AbilityNorikae extends Ability{
         super.init();
         this.activated_position = course.first_spurt_random();
     }
+
+    record(uma) {
+        record_x.push(this.activated_position);
+    }
 }

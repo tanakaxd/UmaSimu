@@ -43,4 +43,8 @@ class AbilityTamamo extends Ability{
         super.init();
         this.activated_position = course.second_half_random();
     }
+
+    record(uma) {
+        record_x.push(this.activated_position);
+    }
 }

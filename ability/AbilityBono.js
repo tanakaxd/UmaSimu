@@ -49,5 +49,8 @@ class AbilityBono extends Ability{
         this.activated_position = this.getRandomPos();
     }
 
+    record(uma) {
+        record_x.push(this.activated_position);
+    }
 
 }
