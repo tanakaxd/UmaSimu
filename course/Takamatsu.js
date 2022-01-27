@@ -35,7 +35,7 @@ class Takamatsu extends Course{
         //ある地点
         this.first_uphill = 851;
 
-        this.standard_frame = 55107;//TODO
+        this.standard_frame = 55102;//TODO
 
     }
 
@@ -138,6 +138,6 @@ class Takamatsu extends Course{
 
     get_first_uphill() {
         return this.first_uphill;
-     }
+    }
     
 }

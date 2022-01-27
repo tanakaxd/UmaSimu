@@ -42,63 +42,78 @@ function setup() {
     course = new Takamatsu();
 
     let button1 = select("#stop");  
-	let button2 = select("#resume");
+    let button2 = select("#resume");
+    // let vt_button = select("#vt-button");
+    let xms_button = select("#xms-button");
+    let ave_button = select("#average-button");
 	button1.mousePressed(stop);
-	button2.mousePressed(resume);
+    button2.mousePressed(resume);
+    // vt_button.mousePressed(describe_vel_chart);
+    xms_button.mousePressed(describe_chart);
+    ave_button.mousePressed(() => {console.log(average_record())});
 
     frameRate(actual_frame_rate);
 	createCanvas(course.race_distance, width);
 
     //スキル単体
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//基準
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru"]));//105ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["unsu"]));//0ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mizumaru"]));//29ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["mac"]));//29ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["suzuka"]));//0ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["oguri"]));//33ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["rudolf"]));//0ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["chikara"]));//n=331,AVE47ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CHIKARA"]));//n=2100,AVE82ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tobosha"]));//AVE34ms,n=543
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["TOBOSHA"]));//AVE58ms,n=3000
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["kage"]));//77ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["KAGE"]));//146ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["dasshutsu"]));//29ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["DASSHUTSU"]));//58ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["professor"]));//18ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["PROFESSOR"]));//34ms
-    umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["SPEEDSTAR"]));//ms    
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["corner"]));//29ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["CORNER"]));//44ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["hidari"]));//20ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["HIDARI"]));//28ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tozanka"]));//126ms
+    // umas.push(new Uma([]));//基準
+    // umas.push(new Uma(["eru"]));//101ms
+    // umas.push(new Uma(["unsu"]));//0ms
+    // umas.push(new Uma(["mizumaru"]));//26ms
+    // umas.push(new Uma(["mac"]));//26ms
+    // umas.push(new Uma(["suzuka"]));//0ms
+    // umas.push(new Uma(["oguri"]));//33ms
+    // umas.push(new Uma(["rudolf"]));//0ms
+    // umas.push(new Uma(["chikara"]));//n=331,AVE47ms
+    // umas.push(new Uma(["CHIKARA"]));//n=2100,AVE82ms
+    // umas.push(new Uma(["norikae"]));//n=,AVE
+    // umas.push(new Uma(["NORIKAE"]));//n=2500,AVE101ms,MAX250ms
+    // umas.push(new Uma(["tobosha"]));//AVE34ms,n=543
+    // umas.push(new Uma(["TOBOSHA"]));//AVE58ms,n=3000
+    // umas.push(new Uma(["kage"]));//77ms
+    // umas.push(new Uma(["KAGE"]));//146ms
+    // umas.push(new Uma(["dasshutsu"]));//26ms
+    // umas.push(new Uma(["DASSHUTSU"]));//60ms
+    // umas.push(new Uma(["professor"]));//15ms
+    // umas.push(new Uma(["PROFESSOR"]));//36ms
+    // umas.push(new Uma(["SPEEDSTAR"]));//AVE41ms,n=830,MAX145ms,MIN6ms    
+    // umas.push(new Uma(["corner"]));//26ms
+    // umas.push(new Uma(["CORNER"]));//43ms
+    // umas.push(new Uma(["hidari"]));//20ms
+    // umas.push(new Uma(["HIDARI"]));//28ms
+    // umas.push(new Uma(["tozanka"]));//126ms
     
     //固有スキル単体
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["ERU"]));//317ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["BONO"]));//AVE118ms,n=1084,60%地点が最大で317ms
-    // umas.push(new Mizumaru(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//99ms
-    // umas.push(new Golshi(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//88ms
-    // umas.push(new Mac(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//99ms
-    // umas.push(new Oguri(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,[]));//96ms
+    // umas.push(new Uma(["ERU"]));//317ms
+    // umas.push(new Uma(["EAGURU"]));//AVE135ms,n=750,MAX220
+    // umas.push(new Uma(["XOGURIRANDOM"]));//AVE119ms,n=1000,MAX375ms。中盤ランダムを2から増やしても大差なし
+    // umas.push(new Uma(["BONO"]));//AVE118ms,n=1084,60%地点が最大で317ms
+    // umas.push(new Mizumaru([]));//101ms
+    // umas.push(new Golshi([]));//88ms
+    // umas.push(new Mac([]));//99ms
+    // umas.push(new Oguri([]));//100ms
     
     //加速スキルの重複
     
     //スキル複合
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["tozanka","kage"]));//186ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["HIDARI","KAGE"]));//173ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["ERU","tozanka"]));//357ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru"]));//195ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka"]));//274ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","chikara"]));//AVE291ms,n=2000
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","norikae"]));//AVE296ms,n=1064
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","CHIKARA"]));//AVE307ms,n=1131
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","chikara","norikae"]));//AVE310ms,n=620
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["eru","eru","tozanka","CHIKARA","norikae"]));//AVE323ms,n=1064
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka"]));//225ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["OGURI","tozanka","NORIKAE"]));//AVE298ms,n=1000,MAX430ms
-    // umas.push(new Uma(Uma.counter,start_pos, height / 8 + Uma.counter * height / 10,["MIZUMARU","eru","eru","tozanka"]));//375ms
+    // umas.push(new Uma(["tozanka","kage"]));//186ms
+    // umas.push(new Uma(["HIDARI","KAGE"]));//173ms
+    // umas.push(new Uma(["ERU","tozanka"]));//357ms
+    // umas.push(new Uma(["eru","eru"]));//195ms
+    // umas.push(new Uma(["eru","eru","tozanka"]));//274ms
+    // umas.push(new Uma(["eru","tozanka"]));//205ms
+    // umas.push(new Uma(["eru","tozanka","norikae"]));//AVE233ms,n=2600,MAX300ms
+    // umas.push(new Uma(["eru","eru","tozanka","chikara"]));//AVE291ms,n=2000
+    umas.push(new Uma(["eru","eru","tozanka","norikae"]));//AVE296ms,n=1064
+    // umas.push(new Uma(["eru","eru","tozanka","CHIKARA"]));//AVE307ms,n=1131
+    // umas.push(new Uma(["eru","eru","tozanka","chikara","norikae"]));//AVE310ms,n=620
+    // umas.push(new Uma(["eru","eru","tozanka","CHIKARA","norikae"]));//AVE323ms,n=1064,MAX436ms
+    // umas.push(new Uma(["eru","eru","CHIKARA","norikae"]));//AVE271ms,n=1000,MAX410
+    // umas.push(new Uma(["OGURI","tozanka"]));//225ms
+    // umas.push(new Uma(["OGURI","NORIKAE"]));//AVE211ms,n=2000,MAX361ms
+    // umas.push(new Uma(["OGURI","tozanka","NORIKAE"]));//AVE298ms,n=1000,MAX430ms
+    // umas.push(new Uma(["EAGURU","tozanka","NORIKAE"]));//AVE298ms,n=2000,MAX489ms
+    // umas.push(new Uma(["MIZUMARU","eru","eru","tozanka"]));//375ms。理想的バクシン
 
     
 
@@ -196,30 +211,30 @@ function describe_chart() {
     });
 }
 
-function describe_vel_chart() {
-    //データセット作成
-    const dataSet = [];
-    for (let i = 0; i < record_x.length; i++) {
-        dataSet.push({ x: record_x[i], y: record_ms[i] });
-    }
+// function describe_vel_chart() {
+//     //データセット作成
+//     const dataSet = [];
+//     for (let i = 0; i < record_x.length; i++) {
+//         dataSet.push({ x: record_x[i], y: record_ms[i] });
+//     }
 
 
-    var ctx = $('#chart');
-    var scatterChart = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: '散布図データセット',
-                data: dataSet
-            }]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'linear',
-                    position: 'bottom'
-                }]
-            }
-        }
-    });
-}
+//     var ctx = $('#chart');
+//     var scatterChart = new Chart(ctx, {
+//         type: 'scatter',
+//         data: {
+//             datasets: [{
+//                 label: '散布図データセット',
+//                 data: dataSet
+//             }]
+//         },
+//         options: {
+//             scales: {
+//                 xAxes: [{
+//                     type: 'linear',
+//                     position: 'bottom'
+//                 }]
+//             }
+//         }
+//     });
+// }

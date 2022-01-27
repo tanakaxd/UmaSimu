@@ -7,9 +7,8 @@ class AbilityXOguriRandom extends Ability{
         this.base_vel_diff = this.inherited? 0.05 : 0.25;
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
-        //スリーセブンは存在する前提
         this.skill_probability = 0.9;
-        this.mid_heal_skills_counts = 3;
+        this.mid_heal_skills_counts = 2;
         this.mid_heal_skills_pos = [];
         this.getHealPositions();
         this.activated_position = -1;
@@ -33,7 +32,6 @@ class AbilityXOguriRandom extends Ability{
     }
 
     terminate(uma) {
-
         if (this.is_active) {
             if (this.modified_duration_frame < this.lapse) {
                 uma.acc.x -= this.base_acc_diff / actual_frame_rate / actual_frame_rate;
@@ -42,7 +40,6 @@ class AbilityXOguriRandom extends Ability{
                 this.is_done = true;
             }
         }
-        
     }
 
     isTriggerable(uma) {
@@ -52,13 +49,12 @@ class AbilityXOguriRandom extends Ability{
     
     getHealPositions() {
         this.mid_heal_skills_pos.splice(0);
-        // if (Math.random() <= this.skill_probability)this.mid_heal_skills_pos.push(800);
+        if (Math.random() <= this.skill_probability)this.mid_heal_skills_pos.push(300);//コーナー回復
         for (let i = 0; i < this.mid_heal_skills_counts; i++) {
             if (Math.random() <= this.skill_probability) {
                 this.mid_heal_skills_pos.push(course.mid_random());
             }
         }
-        if (Math.random() <= this.skill_probability)this.mid_heal_skills_pos.push(course.race_distance - 777);//スリーセブン追加
         this.mid_heal_skills_pos.sort((a, b) => a - b);
     }
 

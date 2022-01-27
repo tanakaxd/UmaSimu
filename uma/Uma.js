@@ -2,7 +2,7 @@ class Uma {
     static counter = 1;
     static top_frame = -1;
 
-    constructor(id, x, y,abilities) {
+    constructor(abilities, id = Uma.counter, x = start_pos, y = height / 8 + Uma.counter * height / 10) {
         this.id = id;
 		this.pos = createVector(x, y);
 		this.r = 25;
@@ -95,7 +95,13 @@ class Uma {
                     break;
                 case "bono":
                     ability = new AbilityBono(true);
-                    break                    
+                    break     
+                case "EAGURU":
+                    ability = new AbilityEaguru(false);
+                    break;
+                case "eaguru":
+                    ability = new AbilityEaguru(true);
+                    break                  
                 case "TOBOSHA":
                     ability = new AbilityTobosha(true);
                     break;
@@ -254,18 +260,18 @@ class Uma {
             const diff_from_standard_ms = (course.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
    
             if (is_logging) {
-                console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard_ms,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
-                console.log(this);
             }
-
+            
             if (is_repetitive_recording) {
                 record_ms.push(roundNum(diff_from_standard_ms, 2));
-
+                
                 //TODO temporal
                 this.abilities.forEach(a => a.record(this));
                 
                 this.init();
             } else {
+                console.log("#"+this.id+" 基準との差:"+roundNum(diff_from_standard_ms,2)+ "ms"+" トップとの差:"+bashin_diff +" タイム:"+ Math.round(this.goal_time*1000)/1000+"秒");
+                console.log(this);
                 this.vt_chart();
                 noLoop();
             }
