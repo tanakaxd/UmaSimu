@@ -49,12 +49,12 @@ class AbilityXOguriRandom extends Ability{
     
     getHealPositions() {
         this.mid_heal_skills_pos.splice(0);
-        if (Math.random() <= this.skill_probability)this.mid_heal_skills_pos.push(300);//コーナー回復
         for (let i = 0; i < this.mid_heal_skills_counts; i++) {
             if (Math.random() <= this.skill_probability) {
                 this.mid_heal_skills_pos.push(course.mid_random());
             }
         }
+        if (Math.random() <= this.skill_probability)this.mid_heal_skills_pos.push(777);
         this.mid_heal_skills_pos.sort((a, b) => a - b);
     }
 

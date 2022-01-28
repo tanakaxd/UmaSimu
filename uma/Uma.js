@@ -101,7 +101,13 @@ class Uma {
                     break;
                 case "eaguru":
                     ability = new AbilityEaguru(true);
-                    break                  
+                    break       
+                case "MONK":
+                    ability = new AbilityMonk(false);
+                    break;
+                case "monk":
+                    ability = new AbilityMonk(true);
+                    break                 
                 case "TOBOSHA":
                     ability = new AbilityTobosha(true);
                     break;
@@ -152,7 +158,13 @@ class Uma {
                     break;
                 case "norikae":
                     ability = new AbilityNorikae(false);
-                    break;                     
+                    break;    
+                case "GOKYAKU":
+                    ability = new AbilityGokyaku(true);
+                    break;
+                case "gokyaku":
+                    ability = new AbilityGokyaku(false);
+                    break;                  
                 case "HIDARI":
                     ability = new AbilityHidariMawari(true);
                     break;
@@ -259,8 +271,8 @@ class Uma {
 
             const diff_from_standard_ms = (course.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
    
-            if (is_logging) {
-            }
+            // if (is_logging) {
+            // }
             
             if (is_repetitive_recording) {
                 record_ms.push(roundNum(diff_from_standard_ms, 2));
