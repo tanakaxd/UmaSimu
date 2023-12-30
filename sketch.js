@@ -13,7 +13,7 @@ let course;
 const umas = [];
 const uma_counts = 1;
 const width = 600;
-const start_pos = 350;//中盤の始まり,2100/6
+const start_pos = 233;//中盤の始まり,1400/6
 const record_ms = [];
 const record_x = [];
 
@@ -39,7 +39,7 @@ const PROGRESSION = {
 };
 
 function setup() {
-    course = new KawasakiDirt2100();
+    course = new Hanshin1400();
 
     let button1 = select("#stop");  
     let button2 = select("#resume");
@@ -56,7 +56,7 @@ function setup() {
 	createCanvas(course.race_distance, width);
 
     //スキル単体
-    // umas.push(new Uma([]));//基準
+    umas.push(new Uma([]));//基準
     // umas.push(new Uma(["eru"]));//
     // umas.push(new Uma(["unsu"]));//
     // umas.push(new Uma(["mizumaru"]));//
