@@ -1,11 +1,11 @@
 
 // const is_describing = true;
 const is_describing = false;
-// const is_repetitive_recording = true;
-const is_repetitive_recording = false;
+const is_repetitive_recording = true;
+// const is_repetitive_recording = false;
 // const is_logging = true;
 // const is_logging = false;
-const actual_frame_rate = is_describing?60: 1200;
+const actual_frame_rate = is_describing?60: 60;//?? 正確性のためどれだけ刻むか？基準計測時1200にしていたが、むしろ60の方がゲームに忠実かも
 // const virtual_frame_rate = 20;
 const bashin_to_meter = 2.5; //"なお現実の1馬身は約2.4mだが、ウマ娘ヘルプ・用語集曰く1バ身約2.5mらしい。(三女神像が腕を伸ばした長さ)"
 
@@ -52,7 +52,7 @@ function setup() {
     xms_button.mousePressed(describe_chart);
     ave_button.mousePressed(() => {console.log(`n=${record_ms.length}, AVE=${average_record()}ms, MAX=${max(record_ms)}`)});
 
-    frameRate(actual_frame_rate);
+    // frameRate(actual_frame_rate);//60以上にはならない模様
 	createCanvas(course.race_distance, width);
 
     //スキル単体
@@ -67,11 +67,11 @@ function setup() {
     // umas.push(new Uma(["chikara"]));//
     // umas.push(new Uma(["CHIKARA"]));//
     // umas.push(new Uma(["norikae"]));//
-    // umas.push(new Uma(["NORIKAE"]));//n=316, AVE=186.226ms, MAX=307.5
+    umas.push(new Uma(["NORIKAE"]));//n=230, AVE=154.051ms, MAX=390 || n=1552, AVE=159.641ms, MAX=377.5
     // umas.push(new Uma(["gokyaku"]));//
     // umas.push(new Uma(["GOKYAKU"]));//
     // umas.push(new Uma(["tobosha"]));//
-    // umas.push(new Uma(["TOBOSHA"]));//n=365, AVE=182.806ms, MAX=407.5
+    // umas.push(new Uma(["TOBOSHA"]));//
     // umas.push(new Uma(["kage"]));//
     // umas.push(new Uma(["KAGE"]));//
     // umas.push(new Uma(["dasshutsu"]));//
@@ -126,7 +126,7 @@ function draw() {
     text("最終直線", course.accum_dist_to_last_straight, 30);
 	pop();
 
-	const frequency = is_describing ? 1 : 2000;
+	const frequency = is_describing ? 1 : 1_000_000;//恣意的な数字？pc性能に依存するならあげられるかも、2000 -> 1_000_000
 
 	for (let i = 0; i < frequency; i++) {
 		for (const uma of umas) {

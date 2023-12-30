@@ -20,7 +20,7 @@ class KawasakiDirt2100 extends Course{
         this.third_corner_spurt_length = 100;
         this.second_half_length = this.race_distance / 2;
 
-        //ある区間の開始地点座標。スタートは0。ゴールは1400
+        //ある区間の開始地点座標。スタートは0
         this.accum_dist_to_early = 0;
         this.accum_dist_to_middle = this.early_length;
         this.accum_dist_to_first_spurt = this.early_length + this.middle_length;
