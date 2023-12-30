@@ -1,39 +1,42 @@
-class Arima extends Course{
-    //終盤開始から第3コーナーまで34m
+class Hanshin1400 extends Course{
 
     constructor() {
         super();
 
         //ある区間の長さ            
-        this.race_distance = 2500;
-        this.simulated_distance = this.race_distance - start_pos;//序盤の417mは除外
+        this.race_distance = 1400;
+        this.simulated_distance = this.race_distance - start_pos;//序盤は除外
         this.early_length = this.race_distance / 6;
         this.middle_length = this.race_distance / 2;
         this.spurt_length = this.race_distance/3;
         this.first_spurt_length = this.spurt_length/2;
         this.second_spurt_length = this.spurt_length / 2;
-        this.third_corner_length = 250;
-        this.final_corner_length = 250;
-        this.last_straight_length = 300;
-        this.final_corner_not_spurt_length = 0;
-        this.final_corner_spurt_length = 250;
-        this.third_corner_not_spurt_length = 0;
-        this.third_corner_spurt_length = 250;
+        this.third_corner_length = 300;
+        this.final_corner_length = 294;
+        this.last_straight_length = 356;
+        this.final_corner_not_spurt_length = 183;
+        this.final_corner_spurt_length = 111;
+        this.third_corner_not_spurt_length = 300;
+        this.third_corner_spurt_length = 0;
         this.second_half_length = this.race_distance / 2;
 
-        //ある区間の開始地点座標。スタートは0。ゴールは2500
+        //ある区間の開始地点座標。スタートは0。ゴールは1400
         this.accum_dist_to_early = 0;
         this.accum_dist_to_middle = this.early_length;
         this.accum_dist_to_first_spurt = this.early_length + this.middle_length;
         this.accum_dist_to_second_spurt = this.accum_dist_to_first_spurt + this.first_spurt_length;
         this.accum_dist_to_spurt = this.early_length + this.middle_length;
-        this.accum_dist_to_third_corner = 1700;//1666+34
+        this.accum_dist_to_third_corner = 450;
         this.accum_dist_to_final_corner = this.accum_dist_to_third_corner + this.third_corner_length;//最終コーナー
-        this.accum_dist_to_spurt_corner = 1700;//終盤コーナー
+        this.accum_dist_to_spurt_corner = 933;//終盤コーナー
         this.accum_dist_to_last_straight = this.accum_dist_to_final_corner + this.final_corner_length;
         this.accum_dist_to_second_half = this.race_distance / 2;
 
-        this.standard_frame = 120556;
+        //ある地点
+        this.first_uphill = 1200;
+        this.first_downhill = 600;
+
+        this.standard_frame = 65193;//TODO
 
     }
 
@@ -122,6 +125,10 @@ class Arima extends Course{
         return Math.random() * this.first_spurt_length + this.accum_dist_to_first_spurt;
     }
 
+    first_spurt_early_random(){
+        return Math.random() * this.first_spurt_length / 2 + this.accum_dist_to_first_spurt;
+    }
+
     second_spurt_random() {
         return Math.random() * this.second_spurt_length + this.accum_dist_to_second_spurt;
     }
@@ -133,4 +140,13 @@ class Arima extends Course{
     spurt_random() {
         return Math.random() * this.spurt_length + this.accum_dist_to_spurt;
     }
+
+    get_first_uphill() {
+        return this.first_uphill;
+    }
+
+    get_first_downhill() {
+        return this.first_downhill;
+    }    
+    
 }

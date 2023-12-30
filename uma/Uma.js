@@ -333,7 +333,7 @@ class Uma {
             type: 'scatter',
             data: {
                 datasets: [{
-                    label: '散布図データセット',
+                    label: 'vtグラフ',
                     data: this.vt_every_sec
                 }]
             },

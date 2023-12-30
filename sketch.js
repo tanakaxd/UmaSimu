@@ -1,8 +1,8 @@
 
 // const is_describing = true;
 const is_describing = false;
-const is_repetitive_recording = true;
-// const is_repetitive_recording = false;
+// const is_repetitive_recording = true;
+const is_repetitive_recording = false;
 // const is_logging = true;
 // const is_logging = false;
 const actual_frame_rate = is_describing?60: 1200;
@@ -13,7 +13,7 @@ let course;
 const umas = [];
 const uma_counts = 1;
 const width = 600;
-const start_pos = 267;
+const start_pos = 350;//中盤の始まり,2100/6
 const record_ms = [];
 const record_x = [];
 
@@ -39,7 +39,7 @@ const PROGRESSION = {
 };
 
 function setup() {
-    course = new February();
+    course = new KawasakiDirt2100();
 
     let button1 = select("#stop");  
     let button2 = select("#resume");
@@ -50,55 +50,55 @@ function setup() {
     button2.mousePressed(resume);
     // vt_button.mousePressed(describe_vel_chart);
     xms_button.mousePressed(describe_chart);
-    ave_button.mousePressed(() => {console.log(`AVE=${average_record()}ms,n=${record_ms.length},MAX=${max(record_ms)}`)});
+    ave_button.mousePressed(() => {console.log(`n=${record_ms.length}, AVE=${average_record()}ms, MAX=${max(record_ms)}`)});
 
     frameRate(actual_frame_rate);
 	createCanvas(course.race_distance, width);
 
     //スキル単体
     // umas.push(new Uma([]));//基準
-    // umas.push(new Uma(["eru"]));//104ms
-    // umas.push(new Uma(["unsu"]));//221ms
-    // umas.push(new Uma(["mizumaru"]));//35ms
-    // umas.push(new Uma(["mac"]));//35ms
-    // umas.push(new Uma(["suzuka"]));//0ms
-    // umas.push(new Uma(["oguri"]));//48ms
-    // umas.push(new Uma(["rudolf"]));//0ms
-    // umas.push(new Uma(["chikara"]));//n=,AVEms
-    // umas.push(new Uma(["CHIKARA"]));//n=,AVEms
-    // umas.push(new Uma(["norikae"]));//n=,AVE
-    // umas.push(new Uma(["NORIKAE"]));//AVE=102.724ms,n=1128,MAX=335.83
+    // umas.push(new Uma(["eru"]));//
+    // umas.push(new Uma(["unsu"]));//
+    // umas.push(new Uma(["mizumaru"]));//
+    // umas.push(new Uma(["mac"]));//
+    // umas.push(new Uma(["suzuka"]));//
+    // umas.push(new Uma(["oguri"]));//
+    // umas.push(new Uma(["rudolf"]));//
+    // umas.push(new Uma(["chikara"]));//
+    // umas.push(new Uma(["CHIKARA"]));//
+    // umas.push(new Uma(["norikae"]));//
+    // umas.push(new Uma(["NORIKAE"]));//n=316, AVE=186.226ms, MAX=307.5
     // umas.push(new Uma(["gokyaku"]));//
-    // umas.push(new Uma(["GOKYAKU"]));//AVE=116.25ms,n=909,MAX=420.83
-    // umas.push(new Uma(["tobosha"]));//AVE100ms,n=600
-    // umas.push(new Uma(["TOBOSHA"]));//AVE=173.674ms,n=959,MAX=420.83
-    // umas.push(new Uma(["kage"]));//103ms
-    // umas.push(new Uma(["KAGE"]));//200ms
-    // umas.push(new Uma(["dasshutsu"]));//35ms
-    // umas.push(new Uma(["DASSHUTSU"]));//82ms
-    // umas.push(new Uma(["professor"]));//20ms
-    // umas.push(new Uma(["PROFESSOR"]));//49ms
-    // umas.push(new Uma(["SPEEDSTAR"]));//AVE=46.923ms,n=425,MAX=161.67
-    // umas.push(new Uma(["corner"]));//35ms
-    // umas.push(new Uma(["CORNER"]));//59ms
-    // umas.push(new Uma(["hidari"]));//25ms 24.83488-24.7849=0.04998
-    // umas.push(new Uma(["HIDARI"]));//36ms 24.85960-24.7849=0.0747
+    // umas.push(new Uma(["GOKYAKU"]));//
+    // umas.push(new Uma(["tobosha"]));//
+    // umas.push(new Uma(["TOBOSHA"]));//n=365, AVE=182.806ms, MAX=407.5
+    // umas.push(new Uma(["kage"]));//
+    // umas.push(new Uma(["KAGE"]));//
+    // umas.push(new Uma(["dasshutsu"]));//
+    // umas.push(new Uma(["DASSHUTSU"]));//
+    // umas.push(new Uma(["professor"]));//
+    // umas.push(new Uma(["PROFESSOR"]));//
+    // umas.push(new Uma(["SPEEDSTAR"]));//
+    // umas.push(new Uma(["corner"]));//
+    // umas.push(new Uma(["CORNER"]));//
+    // umas.push(new Uma(["hidari"]));//
+    // umas.push(new Uma(["HIDARI"]));//
     
     //固有スキル単体
-    // umas.push(new Uma(["ERU"]));//284ms
-    umas.push(new Uma(["MONK"]));//AVE=235.213ms,n=915,MAX=425
-    // umas.push(new Uma(["XOGURIRANDOM"]));//中盤ランダム2：AVE=145.01ms,n=475,MAX=450.83   中盤ランダム3：AVE=148.471ms,n=895,MAX=450.83
-    // umas.push(new Mizumaru([]));//138.33ms
-    // umas.push(new Golshi([]));//118.33ms
-    // umas.push(new Mac([]));//138.33ms
-    // umas.push(new Oguri([]));//135ms
-    // umas.push(new Mayano([]));//AVE=356.957ms,n=965,MAX=450.83
+    // umas.push(new Uma(["ERU"]));//
+    // umas.push(new Uma(["MONK"]));//
+    // umas.push(new Uma(["XOGURIRANDOM"]));//
+    // umas.push(new Mizumaru([]));//
+    // umas.push(new Golshi([]));//
+    // umas.push(new Mac([]));//
+    // umas.push(new Oguri([]));//
+    // umas.push(new Mayano([]));//
 
     //加速スキルの重複
     
     //スキル複合
-    // umas.push(new Uma(["unsu","eru"]));//294.17ms
-    // umas.push(new Uma(["unsu","eru","tobosha"]));//AVE=353.883ms,n=635,MAX=445
+    // umas.push(new Uma(["unsu","eru"]));//
+    // umas.push(new Uma(["unsu","eru","tobosha"]));//
 
 
     
@@ -182,7 +182,7 @@ function describe_chart() {
         type: 'scatter',
         data: {
             datasets: [{
-                label: '散布図データセット',
+                label: '効果量とスキル発動位置の関係',
                 data: dataSet
             }]
         },

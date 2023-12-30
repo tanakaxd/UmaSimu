@@ -16,7 +16,7 @@ class Course {
     final_corner_not_spurt_length;
     final_corner_spurt_length;
     
-    //ある区間の開始地点座標。スタートは0。ゴールは2500
+    //ある区間の開始地点座標。スタートは0。
     accum_dist_to_early;
     accum_dist_to_middle;
     accum_dist_to_first_spurt;
@@ -55,6 +55,8 @@ class Course {
     final_corner_random() { }
 
     first_spurt_random() { }
+
+    first_spurt_early_random() {}
 
     second_spurt_random() {}
 

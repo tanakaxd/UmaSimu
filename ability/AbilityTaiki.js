@@ -1,4 +1,5 @@
 class AbilityTaiki extends Ability{
+    //スキル仕様変更のため修正の必要あり
     constructor(inherited) {
         super();
         this.inherited = inherited;

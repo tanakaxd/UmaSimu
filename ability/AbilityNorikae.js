@@ -7,7 +7,7 @@ class AbilityNorikae extends Ability{
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
         //発動位置
-        this.activated_position = course.first_spurt_random();
+        this.activated_position = course.first_spurt_early_random();
 
     }
 
@@ -38,7 +38,7 @@ class AbilityNorikae extends Ability{
 
     init() {
         super.init();
-        this.activated_position = course.first_spurt_random();
+        this.activated_position = course.first_spurt_early_random();
     }
 
     record(uma) {
