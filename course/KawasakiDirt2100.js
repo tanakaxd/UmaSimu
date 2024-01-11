@@ -36,7 +36,7 @@ class KawasakiDirt2100 extends Course{
         this.first_uphill = -1;
         this.first_downhill = -1;
 
-        this.standard_frame = 97213;//TODO
+        this.standard_frame = 4898;//TODO
 
     }
 

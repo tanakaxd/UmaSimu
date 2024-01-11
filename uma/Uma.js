@@ -2,7 +2,7 @@ class Uma {
     static counter = 1;
     static top_frame = -1;
 
-    constructor(abilities, id = Uma.counter, x = start_pos, y = height / 8 + Uma.counter * height / 10) {
+    constructor(abilities, abilities_instance = [], id = Uma.counter, x = start_pos, y = height / 8 + Uma.counter * height / 10) {
         this.id = id;
 		this.pos = createVector(x, y);
 		this.r = 25;
@@ -164,7 +164,16 @@ class Uma {
                     break;
                 case "gokyaku":
                     ability = new AbilityGokyaku(false);
-                    break;                  
+                    break;  
+                case "SAIZENRETSU":
+                    ability = new AbilitySaizenretsu(true);
+                    break;
+                case "saizenretsu":
+                    ability = new AbilitySaizenretsu(false);
+                    break;       
+                case "SAIZENRETSUEVO":
+                    ability = new AbilitySaizenretsuEvo(true);
+                    break;                                                    
                 case "HIDARI":
                     ability = new AbilityHidariMawari(true);
                     break;
@@ -176,6 +185,11 @@ class Uma {
             }
             this.abilities.push(ability);
         });
+
+        //TODO
+        abilities_instance.forEach(e => {
+            this.abilities.push(e);
+        })
 
 
         this.elapsed_frame = 0;
@@ -208,7 +222,13 @@ class Uma {
             ability.update(this);
         }
 
-        //TODO 速度が上限突破していた時の仕様
+        // 速度が上限突破していた時の仕様
+        // Deceleration is determined by phase
+        // Opening leg: -1.2m/s2
+        // Middle leg: -0.8m/s2
+        // Final leg: -1.0m/s2
+        // Pace Down mode (overriding all above): -0.5m/s2
+        // Out of HP (overriding all above): -1.2m/s2
         
         if (this.vel.x < this.dest_vel) {
             this.vel.add(this.acc);
@@ -217,11 +237,23 @@ class Uma {
             }
         } else if(this.vel.x == this.dest_vel){
         } else {
-            //目標速度のほうが上。例えば速度スキルが切れた場合
-            this.vel.sub(initial_acc);//実際の仕様がどうなっているのかは不明だが、一律で徐々に速度を落としていくように実装
-            if (this.vel.x < this.dest_vel) {
-                this.vel.x = this.dest_vel;
+            //目標速度のほうが下。例えば速度スキルが切れた場合
+            let decc;
+            switch(this.phase){
+                case PHASE.EARLY:
+                    decc = DECC.EARLY;
+                    break;
+                case PHASE.MIDDLE:
+                    decc = DECC.MIDDLE;
+                    break;
+                case PHASE.FINAL_FIRST:
+                    decc = DECC.FINAL_FIRST;
+                    break;
+                case PHASE.FINAL_SECOND:
+                    decc = DECC.FINAL_SECOND;
+                    break;
             }
+            this.vel.sub(decc/actual_frame_rate/actual_frame_rate);
         }
 
         if(!is_repetitive_recording)this.record_vt_every_frame();
@@ -269,7 +301,7 @@ class Uma {
                 bashin_diff = num+ "m";
             }
 
-            const diff_from_standard_ms = (course.standard_frame * (actual_frame_rate / 1200) - this.elapsed_frame) * 1000/actual_frame_rate;//1200は基準フレーム数を計測したときのフレームレート
+            const diff_from_standard_ms = (course.standard_frame - this.elapsed_frame) / actual_frame_rate * 1000;
    
             // if (is_logging) {
             // }
