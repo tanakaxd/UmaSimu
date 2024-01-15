@@ -50,6 +50,10 @@ class Course {
     
     mid_random() { }
     
+    mid_first_random() { }
+
+    mid_second_random() { }
+    
     second_half_random(){}
     
     final_corner_random() { }
