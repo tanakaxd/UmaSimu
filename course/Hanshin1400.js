@@ -36,7 +36,7 @@ class Hanshin1400 extends Course{
         this.first_uphill = 1200;
         this.first_downhill = 600;
 
-        this.standard_frame = 65193;//TODO
+        this.standard_frame = 3183;//TODO
 
     }
 

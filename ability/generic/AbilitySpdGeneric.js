@@ -6,7 +6,13 @@ class AbilitySpdGeneric extends Ability{
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
         //発動位置
-        this.activated_position = pos;
+        //引数が数値ならそのまま入れて、関数なら関数を毎度実行する。呼び出し先がsetupなので一度しか実行されない。確率検証するなら都度実行が必要
+        //一度別クラスの関数を保存するとこちらで実行する時にthisがこのインスタンスを指すようになってうまく機能しない
+        this.is_pos_random = typeof pos !== "number";
+        if(this.is_pos_random){//関数の保存
+            this.func_activated_position = pos;
+        }
+        this.activated_position = this.is_pos_random? this.func_activated_position() : pos;
 
     }
 
@@ -35,6 +41,9 @@ class AbilitySpdGeneric extends Ability{
 
     init() {
         super.init();
+        if(this.is_pos_random){
+            this.activated_position = this.func_activated_position();
+        }
     }
 
     record(uma) {

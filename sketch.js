@@ -73,63 +73,57 @@ function setup() {
 	createCanvas(course.race_distance, width);
 
     //スキル単体
-    umas.push(new Uma([]));//基準
+    // umas.push(new Uma([]));//基準
     // umas.push(new Uma(["eru"]));//
     // umas.push(new Uma(["unsu"]));//
     // umas.push(new Uma(["mizumaru"]));//
     // umas.push(new Uma(["mac"]));//
     // umas.push(new Uma(["suzuka"]));//
-    // umas.push(new Uma(["oguri"]));//
+    // umas.push(new Uma(["oguri"]));//33ms
     // umas.push(new Uma(["rudolf"]));//
-    // umas.push(new Uma(["norikae"]));//n=49226, AVE=92.371ms, MAX=210.83　ワンチャンスも同等
-    // umas.push(new Uma(["NORIKAE"]));//n=230, AVE=154.051ms, MAX=390 || n=1552, AVE=159.641ms, MAX=377.5
+    // umas.push(new Uma(["norikae"]));//n=20148, AVE=109.039ms, MAX=166.67
+    // umas.push(new Uma(["NORIKAE"]));//n=20183, AVE=202.037ms, MAX=300
     // umas.push(new Uma(["tobosha"]));//
-    // umas.push(new Uma(["TOBOSHA"]));//
-    // umas.push(new Uma(["kage"]));//MAX=127.5
-    // umas.push(new Uma(["KAGE"]));//MAX=244.17
+    // umas.push(new Uma(["TOBOSHA"]));//n=20170, AVE=168.543ms, MAX=416.67
+    // umas.push(new Uma(["kage"]));//
+    // umas.push(new Uma(["KAGE"]));//
     // umas.push(new Uma(["dasshutsu"]));//
     // umas.push(new Uma(["DASSHUTSU"]));//
-    // umas.push(new Uma(["professor"]));//MAX=27.5
-    // umas.push(new Uma(["PROFESSOR"]));//MAX=77.5
+    // umas.push(new Uma(["professor"]));//
+    // umas.push(new Uma(["PROFESSOR"]));//
     // umas.push(new Uma(["SPEEDSTAR"]));//
     // umas.push(new Uma(["corner"]));//
     // umas.push(new Uma(["CORNER"]));//
     // umas.push(new Uma(["hidari"]));//
     // umas.push(new Uma(["HIDARI"]));//
-    // umas.push(new Uma([],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//n=42625, AVE=73.82ms, MAX=160.83 切れ味
-    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,1450)]));//MAX=144.17 咲け咲け
-    // umas.push(new Uma(["SAIZENRETSUEVO"]));//n=35620, AVE=65.14ms, MAX=344.17
+    // umas.push(new Uma([],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//
+    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,1450)]));//
+    // umas.push(new Uma(["SAIZENRETSUEVO"]));//
     
     //固有スキル単体
     // umas.push(new Uma(["ERU"]));//
     // umas.push(new Uma(["MONK"]));//
-    // umas.push(new Uma(["XOGURIRANDOM"]));//n=43503, AVE=174.068ms, MAX=477.5
-    // umas.push(new Uma(["xoguri"]));//n=29460, AVE=110.83ms, MAX=110.83
+    // umas.push(new Uma(["XOGURIRANDOM"]));//
+    // umas.push(new Uma(["xoguri"]));//
+    // umas.push(new Unsu([]));//450ms
     // umas.push(new Mizumaru([]));//
     // umas.push(new Golshi([]));//
     // umas.push(new Mac([]));//
-    // umas.push(new Oguri([]));//n=10715, AVE=127.5ms, MAX=127.5
-    // umas.push(new Uma(["oguri"]));//n=11323, AVE=60.83ms, MAX=60.83
+    // umas.push(new Oguri([]));//n=13539, AVE=116.67ms, MAX=116.67
     // umas.push(new Mayano([]));//
 
     //加速スキルの重複
     
     //スキル複合
-    // umas.push(new Uma(["KAGE"]));//n=84605, AVE=244.17ms, MAX=244.17
-    // umas.push(new Uma(["norikae","KAGE"]));//n=29530, AVE=303.871ms, MAX=410.83
-    // umas.push(new Uma(["saizenretsu","KAGE"]));//n=19404, AVE=274.965ms, MAX=427.5
-    // umas.push(new Uma(["SAIZENRETSU","KAGE"]));//n=28904, AVE=285.196ms, MAX=494.17
-    // umas.push(new Uma(["SAIZENRETSUEVO","KAGE"]));//n=42118, AVE=285.602ms, MAX=494.17
-    // umas.push(new Uma(["saizenretsu","KAGE","norikae"]));//n=22515, AVE=326.34ms, MAX=527.5
-    // umas.push(new Uma(["SAIZENRETSU","KAGE","norikae"]));//n=28715, AVE=334.124ms, MAX=560.83
-    // umas.push(new Uma(["SAIZENRETSUEVO","KAGE","norikae"]));//n=59290, AVE=334.309ms, MAX=560.83
-    // umas.push(new Uma(["KAGE"],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//n=34276, AVE=294.747ms, MAX=377.5
-    // umas.push(new Uma(["norikae","KAGE"],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//n=34710, AVE=342.668ms, MAX=510.83
-    // umas.push(new Uma([],[new AbilityCmpGeneric(5,0.4,0.15,course.mid_second_random.bind(course))]));//n=33607, AVE=301.687ms, MAX=450
-    // umas.push(new Uma([],[new AbilityCurSpdGeneric(3,0.15,course.accum_dist_to_first_spurt)]));//
+    // umas.push(new Uma([],[new AbilitySpurtEarlyRandom(2,0.4)]));//石化想定 AVE=215.589ms, MAX=333.33
+    // umas.push(new Uma([],[new AbilityCmpGeneric(5,0.4,0.15,course.mid_second_random.bind(course))]));//
+    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course))]));//スプリントギア n=20138, AVE=83.145ms, MAX=233.33
+    // umas.push(new Uma([],[new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt)]));//ルビー固有 n=20144, AVE=100ms, MAX=100
+    umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course))]));//ルビー進化 n=20127, AVE=53.439ms, MAX=216.67
 
 
-    
+
+
 
     
 }
