@@ -20,7 +20,7 @@ class KawasakiDirt2100 extends Course{
         this.third_corner_spurt_length = 100;
         this.second_half_length = this.race_distance / 2;
 
-        //ある区間の開始地点座標。スタートは0。ゴールは1400
+        //ある区間の開始地点座標。スタートは0
         this.accum_dist_to_early = 0;
         this.accum_dist_to_middle = this.early_length;
         this.accum_dist_to_first_spurt = this.early_length + this.middle_length;
@@ -36,7 +36,7 @@ class KawasakiDirt2100 extends Course{
         this.first_uphill = -1;
         this.first_downhill = -1;
 
-        this.standard_frame = 97213;//TODO
+        this.standard_frame = 4898;//TODO
 
     }
 
@@ -112,7 +112,15 @@ class KawasakiDirt2100 extends Course{
     mid_random() {
         return Math.random() * this.middle_length + this.accum_dist_to_middle;
     }
+    
+    mid_first_random() { 
+        return Math.random() * this.middle_length / 2 + this.accum_dist_to_middle;
+    }
 
+    mid_second_random() { 
+        return Math.random() * this.middle_length / 2 + this.accum_dist_to_middle + this.middle_length / 2;
+    }
+    
     second_half_random() {
         return Math.random() * this.second_half_length + this.accum_dist_to_second_half;
     }
