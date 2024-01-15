@@ -90,7 +90,7 @@ function setup() {
 	createCanvas(course.race_distance, width);
 
     // スキル単体
-    umas.push(new Uma([]));//基準
+    // umas.push(new Uma([]));//基準
     // umas.push(new Uma(["eru"]));//
     // umas.push(new Uma(["unsu"]));//
     // umas.push(new Uma(["mizumaru"]));//
@@ -142,7 +142,8 @@ function setup() {
     // umas.push(new Uma(["SAIZENRETSUEVO","KAGE","norikae"]));//n=59290, AVE=334.309ms, MAX=560.83
     // umas.push(new Uma(["KAGE"],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//n=34276, AVE=294.747ms, MAX=377.5
     // umas.push(new Uma(["norikae","KAGE"],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//n=34710, AVE=342.668ms, MAX=510.83
-
+    // umas.push(new Uma([],[new AbilityCmpGeneric(5,0.4,0.15,course.mid_second_random.bind(course))]));//n=33607, AVE=301.687ms, MAX=450
+    // umas.push(new Uma([],[new AbilityCurSpdGeneric(3,0.15,course.accum_dist_to_first_spurt)]));//
 
 
     

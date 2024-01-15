@@ -112,7 +112,15 @@ class KawasakiDirt2100 extends Course{
     mid_random() {
         return Math.random() * this.middle_length + this.accum_dist_to_middle;
     }
+    
+    mid_first_random() { 
+        return Math.random() * this.middle_length / 2 + this.accum_dist_to_middle;
+    }
 
+    mid_second_random() { 
+        return Math.random() * this.middle_length / 2 + this.accum_dist_to_middle + this.middle_length / 2;
+    }
+    
     second_half_random() {
         return Math.random() * this.second_half_length + this.accum_dist_to_second_half;
     }

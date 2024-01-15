@@ -10,11 +10,9 @@ class AbilityAccGeneric extends Ability{
 
     }
 
-
-
     activate(uma) {
         if (this.is_done || this.is_active) return;
-        if (uma.phase == PHASE.FINAL_FIRST&&uma.pos.x>=this.activated_position) {
+        if (uma.pos.x>=this.activated_position) {
             uma.acc.x += this.base_acc_diff / actual_frame_rate / actual_frame_rate;
             this.is_active = true;
         }
