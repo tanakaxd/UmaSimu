@@ -1,3 +1,7 @@
+const SETTINGS = {
+    LOOPS : 20000,
+}
+
 const PHASE = {
     EARLY : 0,
     MIDDLE : 1,
