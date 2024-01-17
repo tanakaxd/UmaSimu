@@ -71,4 +71,6 @@ class Course {
     fisrt_uphill() { }
     
     first_downhill(){}
+
+    corner_random(){}
 }

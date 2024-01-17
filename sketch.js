@@ -75,7 +75,7 @@ function setup() {
     //スキル単体
     // umas.push(new Uma([]));//基準
     // umas.push(new Uma(["eru"]));//
-    // umas.push(new Uma(["unsu"]));//
+    // umas.push(new Uma(["unsu"]));//MAX=200
     // umas.push(new Uma(["mizumaru"]));//
     // umas.push(new Uma(["mac"]));//
     // umas.push(new Uma(["suzuka"]));//
@@ -87,11 +87,11 @@ function setup() {
     // umas.push(new Uma(["TOBOSHA"]));//n=20170, AVE=168.543ms, MAX=416.67
     // umas.push(new Uma(["kage"]));//
     // umas.push(new Uma(["KAGE"]));//
-    // umas.push(new Uma(["dasshutsu"]));//
-    // umas.push(new Uma(["DASSHUTSU"]));//
+    // umas.push(new Uma(["dasshutsu"]));//AVE=16.67ms, MAX=16.67
+    // umas.push(new Uma(["DASSHUTSU"]));//AVE=66.67ms, MAX=66.67
     // umas.push(new Uma(["professor"]));//
     // umas.push(new Uma(["PROFESSOR"]));//
-    // umas.push(new Uma(["SPEEDSTAR"]));//
+    // umas.push(new Uma(["SPEEDSTAR"]));//AVE=23.895ms, MAX=150
     // umas.push(new Uma(["corner"]));//
     // umas.push(new Uma(["CORNER"]));//
     // umas.push(new Uma(["hidari"]));//
@@ -114,12 +114,27 @@ function setup() {
 
     //加速スキルの重複
     
+
+    const sprint_gear = new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course));//スプリントギア 
+    const ruby_self = new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt);//ルビー固有 
+    const ruby_evo = new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course));//ルビー進化 
+    const conrer_acc = new AbilityAccGeneric(3,0.2,course.corner_random.bind(course));//コーナー加速 
+    const somurie = new AbilityAccGeneric(3,0.4,course.corner_random.bind(course));//ソムリエ 
+    const sekka = new AbilitySpurtEarlyRandom(2,0.4);//石化想定
+
     //スキル複合
     // umas.push(new Uma([],[new AbilitySpurtEarlyRandom(2,0.4)]));//石化想定 AVE=215.589ms, MAX=333.33
     // umas.push(new Uma([],[new AbilityCmpGeneric(5,0.4,0.15,course.mid_second_random.bind(course))]));//
     // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course))]));//スプリントギア n=20138, AVE=83.145ms, MAX=233.33
     // umas.push(new Uma([],[new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt)]));//ルビー固有 n=20144, AVE=100ms, MAX=100
-    umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course))]));//ルビー進化 n=20127, AVE=53.439ms, MAX=216.67
+    // umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course))]));//ルビー進化 n=20127, AVE=53.439ms, MAX=216.67
+    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,course.corner_random.bind(course))]));//コーナー加速 AVE=47.836ms, MAX=233.33
+    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.4,course.corner_random.bind(course))]));//ソムリエ n=20138, AVE=84.705ms, MAX=416.67
+    // umas.push(new Uma(["norikae"],[conrer_acc,sprint_gear]));//n=20186, AVE=208.263ms, MAX=500
+    // umas.push(new Uma(["NORIKAE"],[conrer_acc,sprint_gear]));//n=20213, AVE=280.637ms, MAX=600
+    // umas.push(new Uma(["norikae"],[sekka,sprint_gear]));//n=20228, AVE=319.774ms, MAX=583.33 ★★★★★
+    // umas.push(new Uma(["NORIKAE"],[sekka,sprint_gear]));//n=20247, AVE=368.321ms, MAX=650
+    // umas.push(new Uma(["norikae"],[sekka,conrer_acc,sprint_gear]));//AVE=342.59ms, MAX=633.33
 
 
 

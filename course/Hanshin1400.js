@@ -148,5 +148,13 @@ class Hanshin1400 extends Course{
     get_first_downhill() {
         return this.first_downhill;
     }    
-    
+    corner_random(){
+        const third_corner = [this.accum_dist_to_third_corner,this.accum_dist_to_third_corner+this.third_corner_length];
+        const final_corner = [this.accum_dist_to_final_corner,this.accum_dist_to_final_corner+this.final_corner_length];
+        const candidates_corners = [third_corner,final_corner];
+        const index = Math.floor(Math.random()*candidates_corners.length);
+        const picked_corner = candidates_corners[index];
+        const picked_corner_length = picked_corner[1]-picked_corner[0];
+        return picked_corner[0]+Math.random()*(picked_corner_length);
+    }
 }
