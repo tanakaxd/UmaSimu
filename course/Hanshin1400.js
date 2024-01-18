@@ -121,6 +121,10 @@ class Hanshin1400 extends Course{
         return Math.random() * this.final_corner_length + this.accum_dist_to_final_corner;
     }
 
+    final_corner_half(){
+        return this.accum_dist_to_final_corner + this.final_corner_length/2
+    }
+
     first_spurt_random() {
         return Math.random() * this.first_spurt_length + this.accum_dist_to_first_spurt;
     }

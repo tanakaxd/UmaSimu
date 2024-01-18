@@ -58,6 +58,8 @@ class Course {
     
     final_corner_random() { }
 
+    final_corner_half(){}
+
     first_spurt_random() { }
 
     first_spurt_early_random() {}
