@@ -86,6 +86,7 @@ function setup() {
     const chokkakkou = new AbilityAccGeneric(3,0.2,()=>{return Math.random()*(1195-600)+600});
     const chokkakkou_rare = new AbilityAccGeneric(3,0.3,()=>{return Math.random()*(1195-600)+600});
     const chokkakkou_evo = new AbilityAccGeneric(4,0.3,()=>{return Math.random()*(1195-600)+600});
+    const zengosaku = new AbilityAccGeneric(3,0.2,course.mid_second_half_random.bind(course));
 
     //スキル単体
     // umas.push(new Uma([]));//基準
@@ -103,7 +104,7 @@ function setup() {
     // umas.push(new Uma(["dasshutsu"]));//n=20115, AVE=22.741ms, MAX=83.33
     // umas.push(new Uma(["DASSHUTSU"]));//n=20136, AVE=77.674ms, MAX=200
     // umas.push(new Uma(["professor"]));//n=20113, AVE=18.902ms, MAX=83.33
-    // umas.push(new Uma(["PROFESSOR"]));//n=20126, AVE=51.971ms, MAX=183.33
+    umas.push(new Uma(["PROFESSOR"]));//n=20126, AVE=51.971ms, MAX=183.33
     // umas.push(new Uma(["SPEEDSTAR"]));//AVE=23.895ms, MAX=150
     // umas.push(new Uma(["corner"]));//n=20114, AVE=20.888ms, MAX=83.33
     // umas.push(new Uma(["CORNER"]));//n=20125, AVE=50.456ms, MAX=133.33
@@ -116,7 +117,7 @@ function setup() {
     // umas.push(new Uma([],[sprint_turbo]));//n=20160, AVE=141.059ms, MAX=416.67
     // umas.push(new Uma([],[new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt)]));//ルビー固有 n=20144, AVE=100ms, MAX=100
     // umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course))]));//ルビー進化 n=20127, AVE=53.439ms, MAX=216.67
-    umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.55,course.second_half_random.bind(course))]));//ナカヤマ進化 n=20123, AVE=42.696ms, MAX=250
+    // umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.55,course.second_half_random.bind(course))]));//ナカヤマ博打うち進化 n=20123, AVE=42.696ms, MAX=250
     // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,course.corner_random.bind(course))]));//コーナー加速 AVE=47.836ms, MAX=233.33
     // umas.push(new Uma([],[new AbilityAccGeneric(3,0.4,course.corner_random.bind(course))]));//ソムリエ n=20138, AVE=84.705ms, MAX=416.67
     // umas.push(new Uma([],[new AbilityAccGeneric(4,0.2,course.mid_random.bind(course))]));//仕掛け準備 n=20116, AVE=26.806ms, MAX=266.67
@@ -126,7 +127,8 @@ function setup() {
     // umas.push(new Uma([],[chokkakkou]));//直滑降 n=20125, AVE=49.913ms, MAX=233.33
     // umas.push(new Uma([],[chokkakkou_rare]));//直滑降レア n=20134, AVE=72.797ms, MAX=333.33
     // umas.push(new Uma([],[chokkakkou_evo]));//直滑降ニシノ進化 n=20141, AVE=90.764ms, MAX=366.67
-    
+    // umas.push(new Uma([],[zengosaku]));//善後策 n=20119, AVE=32.7ms, MAX=233.33
+
     //本体固有スキル単体
     // umas.push(new Uma([],[nishino]));//ニシノ本体 n=20259, AVE=400ms, MAX=400
     // umas.push(new Uma(["TAIKI"]));//n=12357, AVE=450ms, MAX=450
@@ -192,7 +194,11 @@ function draw() {
 			uma.update();
 		}
 	}
-    if (record_ms.length >= SETTINGS.LOOPS) noLoop();
+
+    if (record_ms.length >= SETTINGS.LOOPS) {
+        noLoop();
+        umas.forEach(uma=>uma.log());
+    }
 
 }
 
@@ -224,6 +230,7 @@ function getRandomPos(start, end) {
     return start + Math.random()*length;
 }
 
+//TO O 一人ひとりにデータを保持させる手もある。そっちの方が自然だし拡張性がある
 function average_record() {
 	const sum = record_ms.reduce((s, e) => s + e, 0);
 	return roundNum(sum / record_ms.length, 3);

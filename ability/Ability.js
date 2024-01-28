@@ -1,15 +1,13 @@
 class Ability{
-
-    //とりあえず一回しか発動しない前提
-    base_duration;
-    modified_duration_frame;
-    lapse;
-    // inherited;
-    is_active;
-    is_done;
-    activated_position;
-
+    
     constructor() {
+        //とりあえず一回しか発動しない前提
+        this.inherited = false;
+        this.isRare = false;
+        this.skill_point = 0;//TODO とりあえず0で初期化。上位スキルは下位スキルの分も含める
+        this.base_duration;
+        this.modified_duration_frame;
+        this.activated_position;
         this.lapse = 0;
         this.is_active = false;
         this.is_done = false;

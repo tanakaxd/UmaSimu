@@ -14,6 +14,8 @@ class Uma {
         this.dest_vel = mid_dest_vel;
         this.abilities = [];
         this.vt_every_sec = [];
+        this._record_ms = [];//グローバル変数と差別化した命名
+        // this._record_x = [];//TODO グローバル変数の方はスキルインスタンスから値を入れられているので、ウマからやるには構造をもうちょっといじる必要あり
 
         abilities.forEach(element => {
             let ability;
@@ -191,6 +193,8 @@ class Uma {
             this.abilities.push(e);
         })
 
+        this.total_skill_point = this.abilities.reduce((sum,p)=>sum+p.skill_point,0);
+
 
         this.elapsed_frame = 0;
         this.goal_time;
@@ -308,6 +312,7 @@ class Uma {
             
             if (is_repetitive_recording) {
                 record_ms.push(roundNum(diff_from_standard_ms, 2));
+                this._record_ms.push(roundNum(diff_from_standard_ms, 2));
                 
                 //TODO temporal
                 this.abilities.forEach(a => a.record(this));
@@ -347,6 +352,16 @@ class Uma {
         text(roundNum(this.vel.x*actual_frame_rate,3), this.pos.x, this.pos.y+this.r);
         pop();
 
+    }
+
+    log(){
+        const cp = this.total_skill_point=0?-1:this.average_record()/this.total_skill_point;
+        console.log(`n=${this._record_ms.length}, AVE=${this.average_record()}ms, MAX=${max(this._record_ms)}, CP=${roundNum(cp,2)}`)
+    }
+
+    average_record() {
+        const sum = this._record_ms.reduce((s, e) => s + e, 0);
+        return roundNum(sum / this._record_ms.length, 3);
     }
 
     record_vt_every_sec() {
