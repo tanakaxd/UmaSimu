@@ -8,8 +8,8 @@ class Hanshin1400 extends Course{
         this.simulated_distance = this.race_distance - start_pos;//序盤は除外
         this.early_length = this.race_distance / 6;
         this.middle_length = this.race_distance / 2;
-        this.spurt_length = this.race_distance/3;
-        this.first_spurt_length = this.spurt_length/2;
+        this.spurt_length = this.race_distance / 3;
+        this.first_spurt_length = this.spurt_length / 2;
         this.second_spurt_length = this.spurt_length / 2;
         this.third_corner_length = 300;
         this.final_corner_length = 294;
@@ -116,6 +116,10 @@ class Hanshin1400 extends Course{
     mid_second_half_random(){
         return Math.random() * this.middle_length/2 + this.middle_length/2 + this.accum_dist_to_middle;
     }
+
+    first_half_random(){
+        return Math.random() * this.second_half_length;
+    }
     second_half_random() {
         return Math.random() * this.second_half_length + this.accum_dist_to_second_half;
     }
@@ -139,7 +143,9 @@ class Hanshin1400 extends Course{
     second_spurt_random() {
         return Math.random() * this.second_spurt_length + this.accum_dist_to_second_spurt;
     }
-
+    second_spurt_early_random(){
+        return Math.random() * this.second_spurt_length  / 2 + this.accum_dist_to_second_spurt;
+    }
     last_straight_random() {
         return Math.random() * this.last_straight_length + this.accum_dist_to_last_straight;
     }

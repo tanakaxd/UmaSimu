@@ -1,5 +1,5 @@
 class AbilityAccGeneric extends Ability{
-    constructor(duration,acc,pos) {
+    constructor(duration,acc,pos,sp) {
         super();
         this.base_duration = duration;
         this.base_acc_diff = acc;
@@ -13,6 +13,8 @@ class AbilityAccGeneric extends Ability{
             this.func_activated_position = pos;
         }
         this.activated_position = this.is_pos_random? this.func_activated_position() : pos;
+
+        this.skill_point = sp;
 
     }
 

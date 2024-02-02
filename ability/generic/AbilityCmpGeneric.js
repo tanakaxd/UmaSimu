@@ -1,5 +1,5 @@
 class AbilityCmpGeneric extends Ability{
-    constructor(duration,spd,acc,pos) {
+    constructor(duration,spd,acc,pos,sp) {
         super();
         this.base_duration = duration;
         this.base_vel_diff = spd;
@@ -15,6 +15,8 @@ class AbilityCmpGeneric extends Ability{
             this.func_activated_position = pos;
         }
         this.activated_position = this.is_pos_random? this.func_activated_position() : pos;
+        this.skill_point = sp;
+
     }
 
     activate(uma) {

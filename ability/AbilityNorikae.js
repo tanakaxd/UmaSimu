@@ -8,6 +8,7 @@ class AbilityNorikae extends Ability{
 
         //発動位置
         this.activated_position = course.first_spurt_early_random();
+        this.skill_point = this.isRare ? 360 : 180;
 
     }
 

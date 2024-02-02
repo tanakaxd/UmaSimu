@@ -75,18 +75,29 @@ function setup() {
 
     //生成スキル
     const nishino = new AbilityAccGeneric(4,0.4,course.final_corner_half.bind(course));//ニシノ本体
-    const nishino_inherited = new AbilityAccGeneric(2.4,0.2,course.final_corner_half.bind(course));//ニシノ継承
-    const sprint_gear = new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course));//スプリントギア 
-    const sprint_turbo = new AbilityAccGeneric(3,0.4,course.first_spurt_random.bind(course));//スプリントターボ
-    const ruby_self = new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt);//ルビー固有 
-    const ruby_evo = new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course));//ルビー進化 
-    const conrer_acc = new AbilityAccGeneric(3,0.2,course.corner_random.bind(course));//コーナー加速 
-    const somurie = new AbilityAccGeneric(3,0.4,course.corner_random.bind(course));//ソムリエ 
-    const sekka = new AbilitySpurtEarlyRandom(2,0.4);//石化想定
-    const chokkakkou = new AbilityAccGeneric(3,0.2,()=>{return Math.random()*(1195-600)+600});
-    const chokkakkou_rare = new AbilityAccGeneric(3,0.3,()=>{return Math.random()*(1195-600)+600});
-    const chokkakkou_evo = new AbilityAccGeneric(4,0.3,()=>{return Math.random()*(1195-600)+600});
-    const zengosaku = new AbilityAccGeneric(3,0.2,course.mid_second_half_random.bind(course));
+    const nishino_inherited = new AbilityAccGeneric(2.4,0.2,course.final_corner_half.bind(course),200);//ニシノ継承
+    const sprint_gear = new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course),160);//スプリントギア 
+    const sprint_turbo = new AbilityAccGeneric(3,0.4,course.first_spurt_random.bind(course),320);//スプリントターボ
+    const ruby_unique = new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt);//ルビー固有 
+    const ruby_evo = new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course),380);//ルビー進化 
+    const conrer_acc = new AbilityAccGeneric(3,0.2,course.corner_random.bind(course),180);//コーナー加速 
+    const somurie = new AbilityAccGeneric(3,0.4,course.corner_random.bind(course),360);//ソムリエ 
+    // const sekka = new AbilitySpurtEarlyRandom(2,0.4);//石化想定
+    const sekka = new AbilityAccGeneric(2.0,0.4,course.first_spurt_early_random.bind(course),360);//石化想定
+    const chokkakkou = new AbilityAccGeneric(3,0.2,()=>{return Math.random()*(1195-600)+600},120);//直滑降
+    const chokkakkou_rare = new AbilityAccGeneric(3,0.3,()=>{return Math.random()*(1195-600)+600},240);//決意の直滑降
+    const chokkakkou_evo = new AbilityAccGeneric(4,0.3,()=>{return Math.random()*(1195-600)+600},240);//決意の直滑降ニシノ
+    const zengosaku = new AbilityAccGeneric(3,0.2,course.mid_second_half_random.bind(course),160);//善後策
+    const shikake_junbi = new AbilityAccGeneric(4,0.2,course.mid_random.bind(course),140);//仕掛け準備
+    const tsumeyori = new AbilityCmpGeneric(3,0.15,0.05,course.first_spurt_random.bind(course),160);//詰め寄り6位 ~ 9位
+    const summer_dober_unique = new AbilitySpdGeneric(5.0,0.35,course.race_distance*0.6);//夏ドーベル固有
+    const summer_dober_unique_inherited = new AbilitySpdGeneric(3.0,0.15,course.race_distance*0.6,200);//夏ドーベル固有継承
+    const osorenu_kokoro = new AbilityCmpGeneric(2.4,0.15,0.05,course.second_half_random.bind(course),180);//恐れぬ心
+    const daitanfuteki_evo = new AbilityCmpGeneric(4,0.35,0.1,course.second_half_random.bind(course),360);//大胆不敵夏ドベ
+    const sueashi = new AbilitySpdGeneric(2.4,0.15,course.second_spurt_early_random.bind(course),170);//末脚
+    const zenshin_zenrei = new AbilitySpdGeneric(2.4,0.35,course.second_spurt_early_random.bind(course),340);//全身全霊
+    const shinzui_tai = new AbilitySpdGeneric(3,0.25,course.second_spurt_random.bind(course),150);//真髄体
+    const bakuchi_uchi_nakayama = new AbilitySpdGeneric(1.8,0.55,course.second_half_random.bind(course),240);
 
     //スキル単体
     // umas.push(new Uma([]));//基準
@@ -95,39 +106,45 @@ function setup() {
     // umas.push(new Uma(["mizumaru"]));//
     // umas.push(new Uma(["mac"]));//
     // umas.push(new Uma(["oguri"]));//33ms
-    // umas.push(new Uma(["norikae"]));//n=20148, AVE=109.039ms, MAX=166.67
-    // umas.push(new Uma(["NORIKAE"]));//n=20183, AVE=202.037ms, MAX=300
+    // umas.push(new Uma(["norikae"]));//n=20148, AVE=109.262ms, MAX=166.67, CP=0.61
+    // umas.push(new Uma(["NORIKAE"]));//n=20183, AVE=202.424ms, MAX=300, CP=0.56
     // umas.push(new Uma(["tobosha"]));//
-    // umas.push(new Uma(["TOBOSHA"]));//n=20170, AVE=168.543ms, MAX=416.67
+    // umas.push(new Uma(["TOBOSHA"]));//n=20171, AVE=168.874ms, MAX=416.67, CP=0.47
     // umas.push(new Uma(["kage"]));//
     // umas.push(new Uma(["KAGE"]));//
     // umas.push(new Uma(["dasshutsu"]));//n=20115, AVE=22.741ms, MAX=83.33
     // umas.push(new Uma(["DASSHUTSU"]));//n=20136, AVE=77.674ms, MAX=200
     // umas.push(new Uma(["professor"]));//n=20113, AVE=18.902ms, MAX=83.33
-    umas.push(new Uma(["PROFESSOR"]));//n=20126, AVE=51.971ms, MAX=183.33
+    // umas.push(new Uma(["PROFESSOR"]));//n=20126, AVE=51.766ms, MAX=183.33, CP=0.14
     // umas.push(new Uma(["SPEEDSTAR"]));//AVE=23.895ms, MAX=150
     // umas.push(new Uma(["corner"]));//n=20114, AVE=20.888ms, MAX=83.33
     // umas.push(new Uma(["CORNER"]));//n=20125, AVE=50.456ms, MAX=133.33
     // umas.push(new Uma(["hidari"]));//
     // umas.push(new Uma(["HIDARI"]));//
     // umas.push(new Uma([],[new AbilitySpurtEarlyRandom(1.2,0.2)]));//切れ味
-    // umas.push(new Uma([],[new AbilitySpurtEarlyRandom(2,0.4)]));//石化想定 AVE=215.589ms, MAX=333.33
     // umas.push(new Uma([],[new AbilityCmpGeneric(5,0.4,0.15,course.mid_second_random.bind(course))]));//コパ固有
-    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course))]));//スプリントギア n=20138, AVE=83.145ms, MAX=233.33
-    // umas.push(new Uma([],[sprint_turbo]));//n=20160, AVE=141.059ms, MAX=416.67
-    // umas.push(new Uma([],[new AbilityCurSpdGeneric(5,0.25,course.accum_dist_to_first_spurt)]));//ルビー固有 n=20144, AVE=100ms, MAX=100
-    // umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course))]));//ルビー進化 n=20127, AVE=53.439ms, MAX=216.67
-    // umas.push(new Uma([],[new AbilitySpdGeneric(1.8,0.55,course.second_half_random.bind(course))]));//ナカヤマ博打うち進化 n=20123, AVE=42.696ms, MAX=250
-    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.2,course.corner_random.bind(course))]));//コーナー加速 AVE=47.836ms, MAX=233.33
-    // umas.push(new Uma([],[new AbilityAccGeneric(3,0.4,course.corner_random.bind(course))]));//ソムリエ n=20138, AVE=84.705ms, MAX=416.67
-    // umas.push(new Uma([],[new AbilityAccGeneric(4,0.2,course.mid_random.bind(course))]));//仕掛け準備 n=20116, AVE=26.806ms, MAX=266.67
-    // umas.push(new Uma([],[new AbilityCmpGeneric(3,0.15,0.05,course.first_spurt_random.bind(course))]));//詰め寄り n=20117, AVE=27.11ms, MAX=66.67　6位 ~ 9位
 
-    // umas.push(new Uma([],[nishino_inherited]));//ニシノ継承 n=20144, AVE=100ms, MAX=100
-    // umas.push(new Uma([],[chokkakkou]));//直滑降 n=20125, AVE=49.913ms, MAX=233.33
-    // umas.push(new Uma([],[chokkakkou_rare]));//直滑降レア n=20134, AVE=72.797ms, MAX=333.33
-    // umas.push(new Uma([],[chokkakkou_evo]));//直滑降ニシノ進化 n=20141, AVE=90.764ms, MAX=366.67
-    // umas.push(new Uma([],[zengosaku]));//善後策 n=20119, AVE=32.7ms, MAX=233.33
+    // umas.push(new Uma([],[sprint_gear]));//スプリントギア n=20138, AVE=82.823ms, MAX=233.33, CP=0.52
+    // umas.push(new Uma([],[sprint_turbo]));//スプリントターボ n=20160, AVE=141.567ms, MAX=416.67, CP=0.44
+    // umas.push(new Uma([],[sekka]));//石化想定 n=20188, AVE=215.068ms, MAX=333.33, CP=0.6
+    // umas.push(new Uma([],[nishino_inherited]));//ニシノ継承 n=20144, AVE=100ms, MAX=100, CP=0.5
+    // umas.push(new Uma([],[chokkakkou]));//直滑降 n=20126, AVE=51.521ms, MAX=233.33, CP=0.43
+    // umas.push(new Uma([],[chokkakkou_rare]));//直滑降レア n=20134, AVE=72.896ms, MAX=333.33, CP=0.3
+    // umas.push(new Uma([],[chokkakkou_evo]));//直滑降ニシノ進化 n=20141, AVE=90.51ms, MAX=366.67, CP=0.38
+    // umas.push(new Uma([],[zengosaku]));//善後策 n=20118, AVE=31.734ms, MAX=233.33, CP=0.2
+    // umas.push(new Uma([],[shikake_junbi]));//仕掛け準備 n=20116, AVE=26.528ms, MAX=266.67, CP=0.19
+    // umas.push(new Uma([],[conrer_acc]));//コーナー加速 n=20124, AVE=46.642ms, MAX=233.33, CP=0.26
+    // umas.push(new Uma([],[somurie]));//ソムリエ n=20138, AVE=84.713ms, MAX=416.67, CP=0.24
+    // umas.push(new Uma([],[tsumeyori]));//詰め寄り n=20117, AVE=27.182ms, MAX=66.67, CP=0.17
+    // umas.push(new Uma([],[summer_dober_unique_inherited]));//夏ドベ継承
+    // umas.push(new Uma([],[osorenu_kokoro]));//恐れぬ心 n=20115, AVE=24.004ms, MAX=100, CP=0.13
+    // umas.push(new Uma([],[daitanfuteki_evo]));//大胆不敵夏ドベ n=20142, AVE=94.513ms, MAX=266.67, CP=0.26
+    // umas.push(new Uma([],[sueashi]));//末脚 n=20113, AVE=16.67ms, MAX=16.67, CP=0.1
+    // umas.push(new Uma([],[zenshin_zenrei]));//全身全霊 n=20119, AVE=33.33ms, MAX=33.33, CP=0.1
+    // umas.push(new Uma([],[shinzui_tai]));//真髄体 n=20116, AVE=24.414ms, MAX=33.33, CP=0.16
+    // umas.push(new Uma([],[ruby_unique]));//ルビー固有 n=20144, AVE=100ms, MAX=100
+    // umas.push(new Uma([],[ruby_evo]));//ルビー進化 n=20126, AVE=53.12ms, MAX=216.67, CP=0.14
+    // umas.push(new Uma([],[bakuchi_uchi_nakayama]));//ナカヤマ博打うち進化 n=20122, AVE=42.293ms, MAX=250, CP=0.18
 
     //本体固有スキル単体
     // umas.push(new Uma([],[nishino]));//ニシノ本体 n=20259, AVE=400ms, MAX=400
@@ -141,13 +158,15 @@ function setup() {
     // umas.push(new Golshi([]));//
     // umas.push(new Mac([]));//
     // umas.push(new Mayano([]));//
+    // umas.push(new Uma([],[summer_dober_unique]));//夏ドーベル固有　n=20182, AVE=200ms, MAX=200, CP=NaN
+
 
     //スキル複合
-    // umas.push(new Uma(["norikae"],[conrer_acc,sprint_gear]));//n=20186, AVE=208.263ms, MAX=500
-    // umas.push(new Uma(["NORIKAE"],[conrer_acc,sprint_gear]));//n=20213, AVE=280.637ms, MAX=600
-    // umas.push(new Uma(["norikae"],[sekka,sprint_gear]));//n=20228, AVE=319.774ms, MAX=583.33 ★★★★★
-    // umas.push(new Uma(["NORIKAE"],[sekka,sprint_gear]));//n=20247, AVE=368.321ms, MAX=650
-    // umas.push(new Uma(["norikae"],[sekka,conrer_acc,sprint_gear]));//AVE=342.59ms, MAX=633.33
+    umas.push(new Uma(["norikae"],[conrer_acc,sprint_gear]));//n=20186, AVE=209.298ms, MAX=500, CP=0.4
+    // umas.push(new Uma(["NORIKAE"],[conrer_acc,sprint_gear]));//n=20213, AVE=280.057ms, MAX=583.33, CP=0.4
+    // umas.push(new Uma(["norikae"],[sekka,sprint_gear]));//n=20228, AVE=320.088ms, MAX=583.33, CP=0.46 ★★★★★
+    // umas.push(new Uma(["NORIKAE"],[sekka,sprint_gear]));//n=20246, AVE=365.927ms, MAX=650, CP=0.42
+    // umas.push(new Uma(["norikae"],[sekka,conrer_acc,sprint_gear]));//n=20237, AVE=343.711ms, MAX=633.33, CP=0.39
 
     // umas.push(new Uma([],[nishino]));//ニシノ本体 n=20259, AVE=400ms, MAX=400
     // umas.push(new Uma(["norikae"],[nishino]));//n=20282, AVE=458.969ms, MAX=516.67

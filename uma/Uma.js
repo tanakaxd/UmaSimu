@@ -355,7 +355,7 @@ class Uma {
     }
 
     log(){
-        const cp = this.total_skill_point=0?-1:this.average_record()/this.total_skill_point;
+        const cp = this.total_skill_point==0 ? -1 : this.average_record()/this.total_skill_point;
         console.log(`n=${this._record_ms.length}, AVE=${this.average_record()}ms, MAX=${max(this._record_ms)}, CP=${roundNum(cp,2)}`)
     }
 

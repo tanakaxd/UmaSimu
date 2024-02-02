@@ -6,6 +6,9 @@ class AbilityKage extends Ability{
         this.base_acc_diff = this.isRare? 0.4 : 0.2;
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
 
+        this.skill_point = this.isRare ? 360 : 180;
+
+
     }
 
 

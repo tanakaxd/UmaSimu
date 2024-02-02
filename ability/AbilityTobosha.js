@@ -10,6 +10,8 @@ class AbilityTobosha extends Ability{
         //発動位置
         this.activated_position = delay === undefined ? course.final_corner_random() : delay;
 
+        this.skill_point = this.isRare ? 360 : 180;
+
     }
 
 

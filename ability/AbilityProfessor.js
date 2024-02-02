@@ -4,7 +4,7 @@ class AbilityProfessor extends Ability{
         this.isRare = isRare;
         this.base_duration = this.isRare? 2.4:2.4;
         this.base_vel_diff = this.isRare? 0.35:0.15;
-        this.skill_point = 360;
+        this.skill_point = this.isRare ? 360 : 180;
         this.modified_duration_frame = this.base_duration * (course.race_distance / 1000) * actual_frame_rate;
         this.activated_position = course.corner_random();
     }
