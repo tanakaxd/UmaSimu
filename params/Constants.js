@@ -17,9 +17,9 @@ const PROGRESSION = {
 };
 
 const STATS = {
-    SPEED : 1600,
-    POWER : 1500,
-    GUTS : 1000,
+    SPEED : 1450,//1700,1200上限突破分は半分で計算した実数値
+    POWER : 1350,//1500
+    GUTS : 1200,
 }
 
 const DECC = {
