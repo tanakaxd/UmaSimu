@@ -74,7 +74,7 @@ function setup() {
 
 
     //生成スキル
-    const nishino = new AbilityAccGeneric(4,0.4,course.final_corner_half.bind(course));//ニシノ本体
+    const nishino = new AbilityAccGeneric(4,0.4,course.final_corner_half.bind(course),0);//ニシノ本体
     const nishino_inherited = new AbilityAccGeneric(2.4,0.2,course.final_corner_half.bind(course),200);//ニシノ継承
     const sprint_gear = new AbilityAccGeneric(3,0.2,course.first_spurt_random.bind(course),160);//スプリントギア 
     const sprint_turbo = new AbilityAccGeneric(3,0.4,course.first_spurt_random.bind(course),320);//スプリントターボ
@@ -162,18 +162,19 @@ function setup() {
 
 
     //スキル複合
-    umas.push(new Uma(["norikae"],[conrer_acc,sprint_gear]));//n=20186, AVE=209.298ms, MAX=500, CP=0.4
+    // umas.push(new Uma(["norikae"],[conrer_acc,sprint_gear]));//n=20186, AVE=209.298ms, MAX=500, CP=0.4
     // umas.push(new Uma(["NORIKAE"],[conrer_acc,sprint_gear]));//n=20213, AVE=280.057ms, MAX=583.33, CP=0.4
     // umas.push(new Uma(["norikae"],[sekka,sprint_gear]));//n=20228, AVE=320.088ms, MAX=583.33, CP=0.46 ★★★★★
     // umas.push(new Uma(["NORIKAE"],[sekka,sprint_gear]));//n=20246, AVE=365.927ms, MAX=650, CP=0.42
     // umas.push(new Uma(["norikae"],[sekka,conrer_acc,sprint_gear]));//n=20237, AVE=343.711ms, MAX=633.33, CP=0.39
 
     // umas.push(new Uma([],[nishino]));//ニシノ本体 n=20259, AVE=400ms, MAX=400
-    // umas.push(new Uma(["norikae"],[nishino]));//n=20282, AVE=458.969ms, MAX=516.67
-    // umas.push(new Uma(["NORIKAE"],[nishino]));//n=20298, AVE=501.502ms, MAX=600
-    // umas.push(new Uma(["norikae"],[nishino,chokkakkou]));//n=20289, AVE=478.754ms, MAX=616.67 ★★★★★
-    // umas.push(new Uma(["norikae"],[nishino,chokkakkou_evo]));//n=20296, AVE=494.748ms, MAX=650
-    // umas.push(new Uma(["norikae"],[nishino,sprint_gear]));//n=20291, AVE=483.115ms, MAX=616.67
+    // umas.push(new Uma(["norikae"],[nishino]));//n=20282, AVE=459.397ms, MAX=516.67, CP=2.55
+    // umas.push(new Uma(["NORIKAE"],[nishino]));//n=20298, AVE=501.284ms, MAX=600, CP=1.39
+    // umas.push(new Uma(["norikae"],[nishino,chokkakkou]));//n=20290, AVE=479.76ms, MAX=616.67, CP=1.6 ★★★★★
+    // umas.push(new Uma(["norikae"],[nishino,chokkakkou_evo]));//n=20295, AVE=494.268ms, MAX=650, CP=1.18
+    // umas.push(new Uma(["NORIKAE"],[nishino,chokkakkou_evo]));//n=20309, AVE=529.195ms, MAX=700, CP=0.88
+    umas.push(new Uma(["norikae"],[nishino,sprint_gear]));//n=20291, AVE=482.875ms, MAX=616.67, CP=1.42
     // umas.push(new Uma(["norikae"],[nishino,sprint_gear,conrer_acc]));//n=20298, AVE=500.971ms, MAX=683.33
     // umas.push(new Uma(["norikae"],[nishino,sprint_turbo,conrer_acc]));//n=20303, AVE=513.632ms, MAX=716.67
     // umas.push(new Uma(["norikae"],[nishino,sprint_turbo,somurie]));//n=20307, AVE=525.199ms, MAX=766.67
