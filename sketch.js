@@ -109,7 +109,7 @@ function setup() {
 
     //スキル単体
     // umas.push(new Uma([]));//基準
-    // umas.push(new Uma(["eru"]))//
+    // umas.push(new Uma(["eru"]))//n=20190, AVE=100ms, MAX=100, CP=-1
     // umas.push(new Uma(["unsu"]))//n=20235, AVE=233.33ms, MAX=233.33, CP=-1
     // umas.push(new Uma(["mizumaru"]))//
     // umas.push(new Uma(["mac"]))//
@@ -157,7 +157,7 @@ function setup() {
     // umas.push(new Uma([],[kopa_unique]))//
     // umas.push(new Uma([],[full_throttle]))//n=20176, AVE=57.416ms, MAX=150, CP=0.36
     // umas.push(new Uma([],[yuo_maishin]))//n=20189, AVE=95.848ms, MAX=250, CP=0.3
-    umas.push(new Uma([],[yuo_maishin_ikuno]))//n=20190, AVE=100ms, MAX=100, CP=0.31
+    // umas.push(new Uma([],[yuo_maishin_ikuno]))//n=20190, AVE=100ms, MAX=100, CP=0.31
     
     //本体固有スキル単体
     // umas.push(new Uma([],[ikuno_unique]))//n=20190, AVE=100ms, MAX=100, CP=-1
@@ -192,7 +192,7 @@ function setup() {
     // umas.push(new Uma(["norikae"],[high_voltage]))//n=20254, AVE=292.954ms, MAX=500, CP=0.59
     // umas.push(new Uma(["norikae"],[high_voltage,chokkakkou]))//n=20264, AVE=321.615ms, MAX=616.67, CP=0.52
     // umas.push(new Uma(["norikae"],[high_voltage,nishino_inherited]))//n=20028, AVE=435.265ms, MAX=633.33, CP=0.62
-    // umas.push(new Uma(["norikae"],[high_voltage,nishino_inherited,chokkakkou]))//n=20035, AVE=457.405ms, MAX=700, CP=0.56
+    // umas.push(new Uma(["norikae"],[high_voltage,nishino_inherited,chokkakkou]))//n=20035, AVE=457.405ms, MAX=700, CP=0.56 ★★★★★
     // umas.push(new Uma(["norikae"],[nishino_unique,sprint_gear]))//
     // umas.push(new Uma(["norikae"],[nishino_unique,sprint_gear,conrer_acc]))//
     // umas.push(new Uma(["norikae"],[nishino_unique,sprint_turbo,conrer_acc]))//
