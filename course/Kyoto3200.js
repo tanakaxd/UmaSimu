@@ -36,7 +36,10 @@ class Kyoto3200 extends Course{
         this.first_uphill = 208;
         this.first_downhill = 533;
 
-        this.standard_frame = 0;//TODO
+        //TODO 坂
+        this.uphills = [[208,308],[308,533],[2050,2150],[2150,2375]];
+
+        this.standard_frame = 7855;//TODO
 
     }
 
@@ -169,5 +172,14 @@ class Kyoto3200 extends Course{
         const picked_corner = candidates_corners[index];
         const picked_corner_length = picked_corner[1]-picked_corner[0];
         return picked_corner[0]+Math.random()*(picked_corner_length);
+    }
+
+    uphill_random(){
+        const idx = Math.floor(Math.random()*this.uphills.length);
+        const uphill = this.uphills[idx];
+        const a = uphill[0];
+        const b = uphill[1];
+        const step = Math.random()*(b-a);
+        return a+step;
     }
 }

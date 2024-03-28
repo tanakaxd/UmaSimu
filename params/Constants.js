@@ -1,5 +1,5 @@
 const SETTINGS = {
-    LOOPS : 20000,
+    LOOPS : 10000,
 }
 
 const PHASE = {
