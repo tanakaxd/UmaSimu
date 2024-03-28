@@ -13,7 +13,7 @@ let course;
 const umas = [];
 const uma_counts = 1;
 const width = 600;
-const start_pos = 266;//中盤の始まり1600/6。branch毎に書き換え必要
+const start_pos = 533;//中盤の始まり3200/6。branch毎に書き換え必要
 const record_ms = [];
 const record_x = [];
 
@@ -29,7 +29,7 @@ let spurt_dest_vel_diff;
 
 
 function setup() {
-    course = new Hanshin1600();
+    course = new Kyoto3200();
     //umaのパラメータの初期化
     // During opening leg and middle leg,
     // BaseTargetSpeed=BaseSpeed*StrategyPhaseCoef
@@ -108,7 +108,7 @@ function setup() {
     const yuo_maishin_ikuno = new AbilitySpdGeneric(2.4,0.55,course.race_distance/2,320);//勇往邁進イクノ進化
 
     //スキル単体
-    // umas.push(new Uma([]));//基準
+    umas.push(new Uma([]));//基準
     // umas.push(new Uma(["eru"]))//n=20190, AVE=100ms, MAX=100, CP=-1
     // umas.push(new Uma(["unsu"]))//n=20235, AVE=233.33ms, MAX=233.33, CP=-1
     // umas.push(new Uma(["mizumaru"]))//
