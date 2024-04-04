@@ -1,4 +1,4 @@
-class Takamatsu extends Course{
+class Chukyo1200 extends Course{
 
     constructor() {
         super();
@@ -34,6 +34,10 @@ class Takamatsu extends Course{
 
         //ある地点
         this.first_uphill = 851;
+        this.first_downhill = 99999;
+
+        //TODO 坂
+        this.uphills = [];
 
         this.standard_frame = 55102;//TODO
 
@@ -112,6 +116,13 @@ class Takamatsu extends Course{
         return Math.random() * this.middle_length + this.accum_dist_to_middle;
     }
 
+    mid_second_half_random(){
+        return Math.random() * this.middle_length/2 + this.middle_length/2 + this.accum_dist_to_middle;
+    }
+
+    first_half_random(){
+        return Math.random() * this.second_half_length;
+    }
     second_half_random() {
         return Math.random() * this.second_half_length + this.accum_dist_to_second_half;
     }
@@ -120,14 +131,24 @@ class Takamatsu extends Course{
         return Math.random() * this.final_corner_length + this.accum_dist_to_final_corner;
     }
 
+    final_corner_half(){
+        return this.accum_dist_to_final_corner + this.final_corner_length/2
+    }
+
     first_spurt_random() {
         return Math.random() * this.first_spurt_length + this.accum_dist_to_first_spurt;
+    }
+
+    first_spurt_early_random(){
+        return Math.random() * this.first_spurt_length / 2 + this.accum_dist_to_first_spurt;
     }
 
     second_spurt_random() {
         return Math.random() * this.second_spurt_length + this.accum_dist_to_second_spurt;
     }
-
+    second_spurt_early_random(){
+        return Math.random() * this.second_spurt_length  / 2 + this.accum_dist_to_second_spurt;
+    }
     last_straight_random() {
         return Math.random() * this.last_straight_length + this.accum_dist_to_last_straight;
     }
@@ -139,5 +160,26 @@ class Takamatsu extends Course{
     get_first_uphill() {
         return this.first_uphill;
     }
-    
+
+    get_first_downhill() {
+        return this.first_downhill;
+    }    
+    corner_random(){
+        const third_corner = [this.accum_dist_to_third_corner,this.accum_dist_to_third_corner+this.third_corner_length];
+        const final_corner = [this.accum_dist_to_final_corner,this.accum_dist_to_final_corner+this.final_corner_length];
+        const candidates_corners = [third_corner,final_corner];
+        const index = Math.floor(Math.random()*candidates_corners.length);
+        const picked_corner = candidates_corners[index];
+        const picked_corner_length = picked_corner[1]-picked_corner[0];
+        return picked_corner[0]+Math.random()*(picked_corner_length);
+    }
+
+    uphill_random(){
+        const idx = Math.floor(Math.random()*this.uphills.length);
+        const uphill = this.uphills[idx];
+        const a = uphill[0];
+        const b = uphill[1];
+        const step = Math.random()*(b-a);
+        return a+step;
+    }
 }

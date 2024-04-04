@@ -164,7 +164,7 @@ function setup() {
     // umas.push(new Uma([],[yuo_maishin_ikuno]))//n=10073, AVE=216.67ms, MAX=216.67, CP=0.68
     // umas.push(new Uma([],[muga_muchu]))//n=10094, AVE=483.33ms, MAX=483.33, CP=1.34
     // umas.push(new Uma([],[gamushara]))//n=10079, AVE=283.33ms, MAX=283.33, CP=1.57
-    umas.push(new Uma([],[tozanka]))//n=10064, AVE=96.478ms, MAX=316.67, CP=0.6
+    // umas.push(new Uma([],[tozanka]))//n=10064, AVE=96.478ms, MAX=316.67, CP=0.6
     
     //本体固有スキル単体
     // umas.push(new Uma([],[ikuno_unique]))//n=10072, AVE=200ms, MAX=200, CP=-1

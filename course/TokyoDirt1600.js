@@ -1,4 +1,4 @@
-class February extends Course{
+class TokyoDirt1600 extends Course{
 
     constructor() {
         super();
