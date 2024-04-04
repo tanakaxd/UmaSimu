@@ -152,7 +152,7 @@ function setup() {
     // umas.push(new Uma([],[daitanfuteki_summer_dober]))//
     // umas.push(new Uma([],[sueashi]))//n=10061, AVE=50ms, MAX=50, CP=0.29
     // umas.push(new Uma([],[zenshin_zenrei]))//n=10066, AVE=116.67ms, MAX=116.67, CP=0.34
-    // umas.push(new Uma([],[zenshin_zenrei_evo]))//
+    umas.push(new Uma([],[zenshin_zenrei_evo]))//n=10067, AVE=133.33ms, MAX=133.33, CP=0.39
     // umas.push(new Uma([],[shinzui_tai]))//n=10063, AVE=77.734ms, MAX=100, CP=0.52
     // umas.push(new Uma([],[ruby_unique]))//
     // umas.push(new Uma([],[ifudodo_ruby]))//
