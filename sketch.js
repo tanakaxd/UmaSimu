@@ -91,12 +91,14 @@ function setup() {
     const sekka = new AbilityAccGeneric(2.0,0.4,course.first_spurt_early_random.bind(course),360);//石化想定
     const chokkakkou = new AbilityAccGeneric(3,0.2,()=>{return Math.random()*(1195-600)+600},120);//直滑降
     const chokkakkou_rare = new AbilityAccGeneric(3,0.3,()=>{return Math.random()*(1195-600)+600},240);//決意の直滑降
+    const chokkakkou_fine = new AbilityAccGeneric(4,0.3,()=>{return Math.random()*(1195-600)+600},240);//決意の直滑降ファイン
     const chokkakkou_nishino = new AbilityAccGeneric(4,0.3,()=>{return Math.random()*(1195-600)+600},240);//決意の直滑降ニシノ
     const zengosaku = new AbilityAccGeneric(3,0.2,course.mid_second_half_random.bind(course),160);//善後策
     const shikake_junbi = new AbilityAccGeneric(4,0.2,course.mid_random.bind(course),140);//仕掛け準備
     const tsumeyori = new AbilityCmpGeneric(3,0.15,0.05,course.first_spurt_random.bind(course),160);//詰め寄り6位 ~ 9位
     const osorenu_kokoro = new AbilityCmpGeneric(2.4,0.15,0.05,course.second_half_random.bind(course),180);//恐れぬ心
-    const daitanfuteki_summer_dober = new AbilityCmpGeneric(4,0.35,0.1,course.second_half_random.bind(course),360);//大胆不敵夏ドベ
+    const daitanfuteki_summer_dober_1 = new AbilityCmpGeneric(4,0.35,0.1,course.second_half_random.bind(course),360);//大胆不敵夏ドベ1
+    const daitanfuteki_summer_dober_2 = new AbilityCurSpdGeneric(2.4,0.45,course.second_half_random.bind(course),360);//大胆不敵夏ドベ2
     const sueashi = new AbilitySpdGeneric(2.4,0.15,course.second_spurt_early_random.bind(course),170);//末脚
     const zenshin_zenrei = new AbilitySpdGeneric(2.4,0.35,course.second_spurt_early_random.bind(course),340);//全身全霊
     const zenshin_zenrei_evo = new AbilitySpdGeneric(2.4,0.45,course.second_spurt_early_random.bind(course),340);//全身全霊進化
@@ -110,6 +112,7 @@ function setup() {
     const muga_muchu = new AbilityAccGeneric(1.5,0.4,course.accum_dist_to_first_spurt,360);//無我夢中
     const gamushara = new AbilityAccGeneric(1.5,0.2,course.accum_dist_to_first_spurt,180);//がむしゃら
     const tozanka = new AbilityAccGeneric(3.0,0.2,course.uphill_random.bind(course),160);//登山家
+    const speed_star_fine = new AbilitySpdGeneric(1.8,0.45,course.final_corner_random.bind(course),360);//スピードスターファイン進化
 
     //スキル単体
     // umas.push(new Uma([]));//基準
@@ -140,6 +143,7 @@ function setup() {
     // umas.push(new Uma([],[nishino_inherited]))//
     // umas.push(new Uma([],[chokkakkou]))//
     // umas.push(new Uma([],[chokkakkou_rare]))//
+    // umas.push(new Uma([],[chokkakkou_fine]))//n=20193, AVE=107.98ms, MAX=400, CP=0.45
     // umas.push(new Uma([],[chokkakkou_nishino]))//
     // umas.push(new Uma([],[zengosaku]))//
     // umas.push(new Uma([],[shikake_junbi]))//
@@ -149,11 +153,12 @@ function setup() {
     // umas.push(new Uma([],[summer_dober_unique]))//
     // umas.push(new Uma([],[summer_dober_unique_inherited]))//
     // umas.push(new Uma([],[osorenu_kokoro]))//
-    // umas.push(new Uma([],[daitanfuteki_summer_dober]))//
+    // umas.push(new Uma([],[daitanfuteki_summer_dober_1]))//n=20198, AVE=122.05ms, MAX=300, CP=0.34
+    // umas.push(new Uma([],[daitanfuteki_summer_dober_2]))//n=20192, AVE=104.81ms, MAX=266.67, CP=0.29
     // umas.push(new Uma([],[sueashi]))//n=10061, AVE=50ms, MAX=50, CP=0.29
     // umas.push(new Uma([],[zenshin_zenrei]))//n=10066, AVE=116.67ms, MAX=116.67, CP=0.34
-    umas.push(new Uma([],[zenshin_zenrei_evo]))//n=10067, AVE=133.33ms, MAX=133.33, CP=0.39
-    // umas.push(new Uma([],[shinzui_tai]))//n=10063, AVE=77.734ms, MAX=100, CP=0.52
+    // umas.push(new Uma([],[zenshin_zenrei_evo]))//n=10067, AVE=133.33ms, MAX=133.33, CP=0.39
+    // umas.push(new Uma([],[shinzui_tai]))//n=20171, AVE=40.124ms, MAX=50, CP=0.27n=10063, AVE=77.734ms, MAX=100, CP=0.52
     // umas.push(new Uma([],[ruby_unique]))//
     // umas.push(new Uma([],[ifudodo_ruby]))//
     // umas.push(new Uma([],[bakuchi_uchi_nakayama]))//
@@ -165,6 +170,7 @@ function setup() {
     // umas.push(new Uma([],[muga_muchu]))//n=10094, AVE=483.33ms, MAX=483.33, CP=1.34
     // umas.push(new Uma([],[gamushara]))//n=10079, AVE=283.33ms, MAX=283.33, CP=1.57
     // umas.push(new Uma([],[tozanka]))//n=10064, AVE=96.478ms, MAX=316.67, CP=0.6
+    // umas.push(new Uma([],[speed_star_fine]))//n=20183, AVE=77.832ms, MAX=233.33, CP=0.22
     
     //本体固有スキル単体
     // umas.push(new Uma([],[ikuno_unique]))//n=10072, AVE=200ms, MAX=200, CP=-1
