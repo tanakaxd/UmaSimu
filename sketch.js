@@ -37,7 +37,7 @@ function setup() {
 
     // During final leg and last spurt,
     // BaseTargetSpeed=BaseSpeed*StrategyPhaseCoef+sqrt(500*SpeedStat)*DistanceProficiencyModifier*0.002[m/s]
-    //NOTICE:this is in case of insufficient HP
+    //
 
     //     LastSpurtSpeedMax=(BaseTargetSpeedPhase2+0.01*BaseSpeed)*1.05+
     // sqrt(500*SpeedStat)*DistanceProficiencyModifier*0.002+
@@ -109,6 +109,7 @@ function setup() {
     const full_throttle = new AbilitySpdGeneric(2.4,0.25,course.mid_random.bind(course),160);//フルスロットル
     const yuo_maishin = new AbilitySpdGeneric(2.4,0.45,course.mid_random.bind(course),320);//勇往邁進
     const yuo_maishin_ikuno = new AbilitySpdGeneric(2.4,0.55,course.race_distance/2,320);//勇往邁進イクノ進化
+    const yuo_maishin_ikuno_eventual = new AbilitySpdGeneric(2.4,0.55,course.race_distance/2,520);//実質勇往邁進イクノ進化
     const muga_muchu = new AbilityAccGeneric(1.5,0.4,course.accum_dist_to_first_spurt,360);//無我夢中
     const gamushara = new AbilityAccGeneric(1.5,0.2,course.accum_dist_to_first_spurt,180);//がむしゃら
     const tozanka = new AbilityAccGeneric(3.0,0.2,course.uphill_random.bind(course),160);//登山家
@@ -117,18 +118,18 @@ function setup() {
     //スキル単体
     // umas.push(new Uma([]));//基準
     // umas.push(new Uma(["eru"]))//
-    // umas.push(new Uma(["unsu"]))//n=10058, AVE=16.67ms, MAX=16.67, CP=-1
+    // umas.push(new Uma(["unsu"]))//
     // umas.push(new Uma(["mizumaru"]))//
     // umas.push(new Uma(["mac"]))//
-    // umas.push(new Uma(["oguri"]))//n=10063, AVE=83.33ms, MAX=83.33, CP=-1
-    // umas.push(new Uma(["norikae"]))//n=10063, AVE=80.965ms, MAX=300, CP=0.45
-    // umas.push(new Uma(["NORIKAE"]))//n=10066, AVE=125.373ms, MAX=483.33, CP=0.35
+    // umas.push(new Uma(["oguri"]))//
+    // umas.push(new Uma(["norikae"]))//n=10063, AVE=81.492ms, MAX=300, CP=0.45
+    // umas.push(new Uma(["NORIKAE"]))//n=10067, AVE=128.302ms, MAX=483.33, CP=0.36
     // umas.push(new Uma(["tobosha"]))//
     // umas.push(new Uma(["TOBOSHA"]))//
-    // umas.push(new Uma(["kage"]))//n=10072, AVE=200ms, MAX=200, CP=1.11
+    // umas.push(new Uma(["kage"]))//
     // umas.push(new Uma(["KAGE"]))//n=10085, AVE=366.67ms, MAX=366.67, CP=1.02
-    // umas.push(new Uma(["dasshutsu"]))//
-    // umas.push(new Uma(["DASSHUTSU"]))//n=10071, AVE=188.61ms, MAX=316.67, CP=0.52
+    // umas.push(new Uma(["dasshutsu"]))//n=10063, AVE=85.576ms, MAX=150, CP=0.48
+    umas.push(new Uma(["DASSHUTSU"]))//n=10071, AVE=188.747ms, MAX=316.67, CP=0.52
     // umas.push(new Uma(["professor"]))//
     // umas.push(new Uma(["PROFESSOR"]))//
     // umas.push(new Uma(["SPEEDSTAR"]))//
@@ -143,7 +144,7 @@ function setup() {
     // umas.push(new Uma([],[nishino_inherited]))//
     // umas.push(new Uma([],[chokkakkou]))//
     // umas.push(new Uma([],[chokkakkou_rare]))//
-    // umas.push(new Uma([],[chokkakkou_fine]))//n=20193, AVE=107.98ms, MAX=400, CP=0.45
+    // umas.push(new Uma([],[chokkakkou_fine]))//
     // umas.push(new Uma([],[chokkakkou_nishino]))//
     // umas.push(new Uma([],[zengosaku]))//
     // umas.push(new Uma([],[shikake_junbi]))//
@@ -153,12 +154,12 @@ function setup() {
     // umas.push(new Uma([],[summer_dober_unique]))//
     // umas.push(new Uma([],[summer_dober_unique_inherited]))//
     // umas.push(new Uma([],[osorenu_kokoro]))//
-    // umas.push(new Uma([],[daitanfuteki_summer_dober_1]))//n=20198, AVE=122.05ms, MAX=300, CP=0.34
-    // umas.push(new Uma([],[daitanfuteki_summer_dober_2]))//n=20192, AVE=104.81ms, MAX=266.67, CP=0.29
-    // umas.push(new Uma([],[sueashi]))//n=10061, AVE=50ms, MAX=50, CP=0.29
+    // umas.push(new Uma([],[daitanfuteki_summer_dober_1]))//
+    // umas.push(new Uma([],[daitanfuteki_summer_dober_2]))//
+    // umas.push(new Uma([],[sueashi]))//
     // umas.push(new Uma([],[zenshin_zenrei]))//n=10066, AVE=116.67ms, MAX=116.67, CP=0.34
-    // umas.push(new Uma([],[zenshin_zenrei_evo]))//n=10067, AVE=133.33ms, MAX=133.33, CP=0.39
-    // umas.push(new Uma([],[shinzui_tai]))//n=20171, AVE=40.124ms, MAX=50, CP=0.27n=10063, AVE=77.734ms, MAX=100, CP=0.52
+    // umas.push(new Uma([],[zenshin_zenrei_evo]))//
+    // umas.push(new Uma([],[shinzui_tai]))//n=10063, AVE=78.052ms, MAX=100, CP=0.52
     // umas.push(new Uma([],[ruby_unique]))//
     // umas.push(new Uma([],[ifudodo_ruby]))//
     // umas.push(new Uma([],[bakuchi_uchi_nakayama]))//
@@ -167,13 +168,14 @@ function setup() {
     // umas.push(new Uma([],[full_throttle]))//
     // umas.push(new Uma([],[yuo_maishin]))//
     // umas.push(new Uma([],[yuo_maishin_ikuno]))//n=10073, AVE=216.67ms, MAX=216.67, CP=0.68
+    // umas.push(new Uma([],[yuo_maishin_ikuno_eventual]))//n=10073, AVE=216.67ms, MAX=216.67, CP=0.42
     // umas.push(new Uma([],[muga_muchu]))//n=10094, AVE=483.33ms, MAX=483.33, CP=1.34
     // umas.push(new Uma([],[gamushara]))//n=10079, AVE=283.33ms, MAX=283.33, CP=1.57
-    // umas.push(new Uma([],[tozanka]))//n=10064, AVE=96.478ms, MAX=316.67, CP=0.6
-    // umas.push(new Uma([],[speed_star_fine]))//n=20183, AVE=77.832ms, MAX=233.33, CP=0.22
+    // umas.push(new Uma([],[tozanka]))//n=10064, AVE=94.38ms, MAX=316.67, CP=0.59
+    // umas.push(new Uma([],[speed_star_fine]))//
     
     //本体固有スキル単体
-    // umas.push(new Uma([],[ikuno_unique]))//n=10072, AVE=200ms, MAX=200, CP=-1
+    // umas.push(new Uma([],[ikuno_unique]))//
     // umas.push(new Uma([],[nishino_unique]))//
     // umas.push(new Uma(["TAIKI"]))//
     // umas.push(new Uma([],[summer_dober_unique]))//
